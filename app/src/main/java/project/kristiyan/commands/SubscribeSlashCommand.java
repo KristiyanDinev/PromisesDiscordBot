@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.jetbrains.annotations.NotNull;
 import project.kristiyan.App;
-import project.kristiyan.models.User;
+import project.kristiyan.models.DUser;
 
 import java.awt.*;
 
@@ -25,8 +25,8 @@ public class SubscribeSlashCommand extends ListenerAdapter {
         }
 
         long memberId = member.getIdLong();
-        for (User user : App.database.getUsers()) {
-            if (user.id == memberId) {
+        for (DUser DUser : App.database.getUsers()) {
+            if (DUser.id == memberId) {
                 EmbedBuilder embedBuilder = new EmbedBuilder();
                 embedBuilder.setTitle("Already subscribed");
                 embedBuilder.setColor(Color.GREEN);
@@ -39,7 +39,7 @@ public class SubscribeSlashCommand extends ListenerAdapter {
         OptionMapping optionMapping_time = event.getOption("time");
         if (optionMapping_time == null) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle("Provide time and timezone");
+            embedBuilder.setTitle("Provide time and timezone. Example: 8:30 Europe/Helsinki");
             embedBuilder.setColor(Color.RED);
 
             event.replyEmbeds(embedBuilder.build()).queue();
@@ -49,10 +49,10 @@ public class SubscribeSlashCommand extends ListenerAdapter {
         String time = optionMapping_time.getAsString();
 
         String[] parts = time.split(" ");
-        if (parts.length != 3 || !parts[0].contains(":")) {
+        if (parts.length != 2 || !parts[0].contains(":")) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("Invalid provided time and timezone format");
-            embedBuilder.addField("Example" , "8:30 AM EEST", false);
+            embedBuilder.addField("Example" , "8:30 Europe/Helsinki", false);
             embedBuilder.setColor(Color.RED);
 
             event.replyEmbeds(embedBuilder.build()).queue();
@@ -61,7 +61,7 @@ public class SubscribeSlashCommand extends ListenerAdapter {
 
         try {
             App.database.insertUser(
-                    new User(memberId, member.getEffectiveName(), time, ""));
+                    new DUser(memberId, member.getEffectiveName(), time, false));
 
         } catch (Exception e) {
             EmbedBuilder embedBuilder = new EmbedBuilder();

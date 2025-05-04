@@ -67,8 +67,8 @@ public class MusicCommand extends ListenerAdapter {
 
         // load and play for the multiple file tracks.
         if (playlist.isDirectory()) {
-            File[] files = playlist.listFiles(File::isFile);
-            if (files == null || files.length == 0) {
+            List<File> files = App.utils.getFiles(playlist.getAbsolutePath());
+            if (files.isEmpty()) {
                 event.replyEmbeds(
                         new EmbedBuilder()
                                 .setTitle("No such source.")

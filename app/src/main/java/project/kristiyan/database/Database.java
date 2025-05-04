@@ -1,7 +1,7 @@
 package project.kristiyan.database;
 
 import org.sqlite.JDBC;
-import project.kristiyan.models.User;
+import project.kristiyan.models.DUser;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -13,13 +13,15 @@ public class Database {
             " id BIGINT NOT NULL PRIMARY KEY," +
             " username VARCHAR(255) NOT NULL," +
             " time VARCHAR(100) NOT NULL," +
-            " last_time_message_sent VARCHAR(100) NOT NULL);";
+            " has_sent BOOLEAN NOT NULL DEFAULT 0);";
 
     private String selectUsers = "SELECT * FROM users;";
 
-    private String insertUser = "INSERT INTO users (id, username, time, last_time_message_sent) VALUES (?, ?, ?, ' ');";
+    private String insertUser = "INSERT INTO users (id, username, time, has_sent) VALUES (?, ?, ?, 0);";
 
     private String deleteUser = "DELETE FROM users WHERE id = ?;";
+
+    private String updateUser = "UPDATE users SET has_sent = ? WHERE id = ?;";
 
     public Database() throws Exception {
         DriverManager.registerDriver(new JDBC());
@@ -32,36 +34,36 @@ public class Database {
         return DriverManager.getConnection(url);
     }
 
-    public List<User> getUsers() {
-        List<User> users = new ArrayList<>();
+    public List<DUser> getUsers() {
+        List<DUser> DUsers = new ArrayList<>();
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(selectUsers);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                users.add(new User(
+                DUsers.add(new DUser(
                         resultSet.getBigDecimal("id").longValue(),
                         resultSet.getString("username"),
                         resultSet.getString("time"),
-                        resultSet.getString("last_time_message_sent")
+                        resultSet.getBoolean("has_sent")
                 ));
             }
             resultSet.close();
             connection.close();
-            return users;
+            return DUsers;
 
         } catch (Exception e) {
-            return users;
+            return DUsers;
         }
     }
 
-    public void insertUser(User user) throws Exception {
+    public void insertUser(DUser DUser) throws Exception {
         Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(insertUser);
 
-        preparedStatement.setBigDecimal(1, BigDecimal.valueOf(user.id));
-        preparedStatement.setString(2, user.username);
-        preparedStatement.setString(3, user.time);
+        preparedStatement.setBigDecimal(1, BigDecimal.valueOf(DUser.id));
+        preparedStatement.setString(2, DUser.username);
+        preparedStatement.setString(3, DUser.time);
 
         preparedStatement.executeUpdate();
 
@@ -72,6 +74,15 @@ public class Database {
         Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(deleteUser);
         preparedStatement.setBigDecimal(1, BigDecimal.valueOf(id));
+        preparedStatement.executeUpdate();
+        connection.close();
+    }
+
+    public void updateUser(long id, boolean has_sent) throws Exception {
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(updateUser);
+        preparedStatement.setBoolean(1, has_sent);
+        preparedStatement.setBigDecimal(2, BigDecimal.valueOf(id));
         preparedStatement.executeUpdate();
         connection.close();
     }
