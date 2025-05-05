@@ -1,7 +1,6 @@
 package project.kristiyan.listeners;
 
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
@@ -17,7 +16,6 @@ import project.kristiyan.models.DUser;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -72,7 +70,7 @@ public class GuildListener extends ListenerAdapter {
                                 "Volume level between 0 and 100", true)
         ).queue();
 
-        App.jda.getPresence().setActivity(Activity.listening("The bot may sent the promises twice. Music bot and daily promises."));
+        App.jda.getPresence().setActivity(Activity.listening("The bot may sent the daily promise twice. Music bot and daily promises."));
 
         // run every 60 seconds / 1 min
         new Timer().schedule(new TimerTask(){
@@ -106,19 +104,16 @@ public class GuildListener extends ListenerAdapter {
 
                         ZonedDateTime currentTimeForUser = ZonedDateTime.now(zoneId);
 
-                        ZonedDateTime expectedTimeForSendingTheMessage = ZonedDateTime.of(
-                                LocalDateTime.now()
-                                        .withHour(hour)
-                                        .withMinute(mins),
-                                zoneId
-                        );
+                        // Current time components
+                        int currentHour = currentTimeForUser.getHour();
+                        int currentMinute = currentTimeForUser.getMinute();
 
-                        ZonedDateTime maxPeriodForSendingTheMessage = expectedTimeForSendingTheMessage.plusMinutes(5);
+                        // Check if we're in the 5-minute window for sending
+                        boolean shouldSendNow = currentHour == hour &&
+                                currentMinute >= mins &&
+                                currentMinute <= (mins + 5);
 
-                        boolean timesEqualForSending = expectedTimeForSendingTheMessage.equals(currentTimeForUser) || maxPeriodForSendingTheMessage.equals(currentTimeForUser);
-                        boolean inBetweenTimes = expectedTimeForSendingTheMessage.isBefore(currentTimeForUser) || maxPeriodForSendingTheMessage.isAfter(currentTimeForUser);
-
-                        if ((timesEqualForSending || inBetweenTimes) && !Duser.has_sent) {
+                        if (shouldSendNow && !Duser.has_sent) {
                             // we still are in the time for sending the message.
 
                             // PrivateChannel = DM
