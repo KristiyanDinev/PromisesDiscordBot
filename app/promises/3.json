@@ -1,0 +1,44 @@
+{
+    "author": "Daily Promise",
+    "footer": "File 3.json - Kings James Version (KJV)",
+    "color": "green",
+    "url": "",
+    "image": "",
+  
+    "fields": [
+      {
+        "name": "Daniel 9:9",
+        "value": "9 To the Lord our God belong mercies and forgivenesses, though we have rebelled against him;",
+        "inline": false
+      },
+
+      {
+        "name": "Acts 5:31",
+        "value": "31 Him hath God exalted with his right hand to be a Prince and a Saviour, for to give repentance to Israel, and forgiveness of sins.",
+        "inline": false
+      },
+
+      {
+        "name": "Ephesians 1:7",
+        "value": "7 In whom we have redemption through his blood, the forgiveness of sins, according to the riches of his grace;",
+        "inline": false
+      },
+
+      {
+        "name": "Colossians 1:14",
+        "value": "14 In whom we have redemption through his blood, even the forgiveness of sins:",
+        "inline": false
+      },
+
+      {
+        "name": "1 John 1:9",
+        "value": "9 If we confess our sins, he is faithful and just to forgive us our sins, and to cleanse us from all unrighteousness.",
+        "inline": false
+      },
+  
+      {
+        "name": "Summary",
+        "value": "God offers forgiveness of sins out of His abundance of mercies."
+      }
+    ]
+  }
