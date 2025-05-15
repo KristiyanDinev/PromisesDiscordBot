@@ -1,5 +1,5 @@
 # PromisesDiscordBot
-A simple bot for messaging discord DUsers with a promise of God and maybe some study.
+A simple bot for messaging discord DUsers with a promise from the Bible and maybe some study.
 The configuration and the database should be in the same path as the JAR.
 
 ## Playlists
