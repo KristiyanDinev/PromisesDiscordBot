@@ -4,7 +4,6 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +24,7 @@ public class QueueCommand extends ListenerAdapter {
         }
 
         Guild guild = event.getGuild();
-        GuildMusicManager musicManager = App.utils.getGuildMusicManager(guild);
+        GuildMusicManager musicManager = App.utility.getGuildMusicManager(guild);
         if (musicManager == null) {
             return;
         }

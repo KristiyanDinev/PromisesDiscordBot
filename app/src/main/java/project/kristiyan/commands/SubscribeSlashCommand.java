@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.jetbrains.annotations.NotNull;
 import project.kristiyan.App;
-import project.kristiyan.models.DUser;
+import project.kristiyan.database.entities.UserEntity;
 
 import java.awt.*;
 
@@ -25,8 +25,8 @@ public class SubscribeSlashCommand extends ListenerAdapter {
         }
 
         long memberId = member.getIdLong();
-        for (DUser DUser : App.database.getUsers()) {
-            if (DUser.id == memberId) {
+        for (UserEntity UserEntity : App.database.getUsers()) {
+            if (UserEntity.id == memberId) {
                 EmbedBuilder embedBuilder = new EmbedBuilder();
                 embedBuilder.setTitle("Already subscribed");
                 embedBuilder.setColor(Color.GREEN);
@@ -61,7 +61,7 @@ public class SubscribeSlashCommand extends ListenerAdapter {
 
         try {
             App.database.insertUser(
-                    new DUser(memberId, member.getEffectiveName(), time, false));
+                    new UserEntity(memberId, member.getEffectiveName(), time, false ,));
 
         } catch (Exception e) {
             EmbedBuilder embedBuilder = new EmbedBuilder();

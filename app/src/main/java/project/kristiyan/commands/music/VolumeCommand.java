@@ -21,7 +21,7 @@ public class VolumeCommand extends ListenerAdapter {
         }
 
         Guild guild = event.getGuild();
-        GuildMusicManager musicManager = App.utils.getGuildMusicManager(guild);
+        GuildMusicManager musicManager = App.utility.getGuildMusicManager(guild);
         if (musicManager == null) {
             return;
         }

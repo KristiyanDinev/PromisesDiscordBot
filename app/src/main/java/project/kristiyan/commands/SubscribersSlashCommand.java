@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 import project.kristiyan.App;
-import project.kristiyan.models.DUser;
+import project.kristiyan.database.entities.UserEntity;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -30,11 +30,11 @@ public class SubscribersSlashCommand extends ListenerAdapter {
 
         int num = 0;
 
-        List<DUser> DUsers = App.database.getUsers();
-        int size = DUsers.size();
+        List<UserEntity> userEntities = App.database.getUsers();
+        int size = userEntities.size();
         for (int i = 0; i < size; i++) {
-            DUser DUser = DUsers.get(i);
-            embedBuilder.addField(DUser.username, DUser.time, false);
+            UserEntity user = userEntities.get(i);
+            embedBuilder.addField(user.username, user.time, false);
 
             if (num >= 25 || (i == size - 1)) {
                 embeds.add(embedBuilder.build());

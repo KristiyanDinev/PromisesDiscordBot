@@ -1,25 +1,13 @@
 package project.kristiyan.listeners;
 
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
-import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import project.kristiyan.App;
-import project.kristiyan.models.DUser;
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.*;
 
 public class GuildListener extends ListenerAdapter {
 
@@ -29,9 +17,6 @@ public class GuildListener extends ListenerAdapter {
             event.replyChoices(new Command.Choice("8:30 Europe/Helsinki", "8:30 Europe/Helsinki")).queue();
         }
     }
-
-
-
 
 
 
@@ -72,30 +57,5 @@ public class GuildListener extends ListenerAdapter {
         ).queue();
 
         App.jda.getPresence().setActivity(Activity.listening("Music bot and daily promises. Only one playlist: Telegram"));
-    }
-
-
-    /**
-     * Registers slash commands as GLOBAL commands (unlimited).
-     * These commands may take up to an hour to update.
-     */
-    @Override
-    public void onReady(ReadyEvent event) {
-        /*
-        event.getJDA().updateCommands().addCommands(
-                Commands.slash("subscribe",
-                                "You will subscribe to a daily messages about God's promises.")
-                        .addOption(OptionType.STRING,
-                                "time",
-                                "Your time when you would like to receive the message. Example: 8:30 AM EEST"),
-
-                Commands.slash("unsubscribe",
-                        "You will unsubscribe."),
-
-                Commands.slash("subscribers",
-                        "You will see the subscribers.")
-        ).queue();
-
-         */
     }
 }

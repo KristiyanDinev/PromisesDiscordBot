@@ -1,12 +1,12 @@
 # PromisesDiscordBot
-A simple bot for messaging discord DUsers with a promise from the Bible and maybe some study.
+A simple bot for messaging discord userEntities with a promise from the Bible and maybe some study.
 The configuration and the database should be in the same path as the JAR.
 
 ## Playlists
 `/playlists` folder will contain the playlists. Each playlist is inside a folder and that folder's name is the playlist's name, which should be inside that `/playlists` folder.
 
 ## Database
-`DUsers.sqlite` will contain the subscribed members and their timezones.
+`userEntities.sqlite` will contain the subscribed members and their timezones.
 
 ## Promises
 `/promises` will contain the promises in JSON format. Each promise has it's own single file.

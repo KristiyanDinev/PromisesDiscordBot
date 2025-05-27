@@ -20,10 +20,8 @@ import project.kristiyan.audio.GuildMusicManager;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MusicCommand extends ListenerAdapter {
 
@@ -67,7 +65,7 @@ public class MusicCommand extends ListenerAdapter {
 
         // load and play for the multiple file tracks.
         if (playlist.isDirectory()) {
-            List<File> files = App.utils.getFiles(playlist.getAbsolutePath());
+            List<File> files = App.utility.getFiles(playlist.getAbsolutePath());
             if (files.isEmpty()) {
                 event.replyEmbeds(
                         new EmbedBuilder()
@@ -120,7 +118,7 @@ public class MusicCommand extends ListenerAdapter {
 
     private void loadAndPlay(SlashCommandInteractionEvent event, VoiceChannel channel, String trackUrl) {
         Guild guild = event.getGuild();
-        GuildMusicManager musicManager = App.utils.getGuildMusicManager(guild);
+        GuildMusicManager musicManager = App.utility.getGuildMusicManager(guild);
         if (musicManager == null) {
             return;
         }
@@ -130,10 +128,10 @@ public class MusicCommand extends ListenerAdapter {
 
         musicManager.player.setVolume(25);
 
-        App.utils.playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
+        App.utility.playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
-                App.utils.connectToVoiceChannel(guild.getAudioManager(), channel);
+                App.utility.connectToVoiceChannel(guild.getAudioManager(), channel);
                 musicManager.scheduler.queue(track);
             }
 
@@ -145,7 +143,7 @@ public class MusicCommand extends ListenerAdapter {
                     firstTrack = playlist.getTracks().getFirst();
                 }
 
-                App.utils.connectToVoiceChannel(guild.getAudioManager(), channel);
+                App.utility.connectToVoiceChannel(guild.getAudioManager(), channel);
                 musicManager.scheduler.queue(firstTrack);
             }
 

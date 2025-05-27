@@ -31,6 +31,9 @@ dependencies {
     implementation(libs.slf4j)
     implementation(libs.logback)
     implementation(libs.lavaplayer)
+    implementation(libs.jpa)
+    implementation(libs.lombok)
+    implementation(libs.hibernate)
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

@@ -9,6 +9,7 @@ import java.nio.ByteBuffer;
 public class AudioPlayerSendHandler implements AudioSendHandler {
     private final AudioPlayer audioPlayer;
     private AudioFrame lastFrame;
+    private final ByteBuffer buffer = ByteBuffer.allocateDirect(1024);
 
     public AudioPlayerSendHandler(AudioPlayer audioPlayer) {
         this.audioPlayer = audioPlayer;
@@ -22,7 +23,11 @@ public class AudioPlayerSendHandler implements AudioSendHandler {
 
     @Override
     public ByteBuffer provide20MsAudio() {
-        return ByteBuffer.wrap(lastFrame.getData());
+        byte[] data = lastFrame.getData();
+        buffer.clear();        // Reset for new data
+        buffer.put(data);      // Fill with new audio
+        buffer.flip();         // Prepare for read
+        return buffer;
     }
 
     @Override

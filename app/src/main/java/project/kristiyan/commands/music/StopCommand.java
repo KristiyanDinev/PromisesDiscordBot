@@ -23,7 +23,7 @@ public class StopCommand extends ListenerAdapter {
             return;
         }
 
-        GuildMusicManager musicManager = App.utils.getGuildMusicManager(guild);
+        GuildMusicManager musicManager = App.utility.getGuildMusicManager(guild);
         if (musicManager == null) {
             return;
         }
