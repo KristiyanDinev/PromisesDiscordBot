@@ -2,23 +2,14 @@ package project.kristiyan.listeners;
 
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
-import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import project.kristiyan.App;
+import project.kristiyan.enums.Services;
 
 public class GuildListener extends ListenerAdapter {
-
-    @Override
-    public void onCommandAutoCompleteInteraction(CommandAutoCompleteInteractionEvent event) {
-        if (event.getName().equals("subscribe") && event.getFocusedOption().getName().equals("time")) {
-            event.replyChoices(new Command.Choice("8:30 Europe/Helsinki", "8:30 Europe/Helsinki")).queue();
-        }
-    }
-
-
 
     /**
      * Registers slash commands as GUILD commands (max 100).
@@ -26,24 +17,42 @@ public class GuildListener extends ListenerAdapter {
      */
     @Override
     public void onGuildReady(GuildReadyEvent event) {
+
+        OptionData serviceOption = new OptionData(OptionType.STRING,
+                "service",
+                "Specify a service. Example: Promises",
+                true)
+                .addChoice(Services.Promises.name(), Services.Promises.name())
+                .addChoice(Services.Reminders.name(), Services.Reminders.name());
+
+        OptionData timeOption = new OptionData(OptionType.STRING,
+                "time",
+                "The time to send you the message. Example: 8:30 Europe/Helsinki",
+                true);
+
         event.getGuild().updateCommands().addCommands(
                 Commands.slash("subscribe",
-                                "You will subscribe to a daily messages about God's promises.")
-                        .addOption(OptionType.STRING,
-                                "time",
-                                "Your time when you would like to receive the message. Example: 8:30 Europe/Helsinki", true),
+                                "Subscribe for one of our services.")
+                        .addOptions(timeOption, serviceOption),
 
                 Commands.slash("unsubscribe",
-                        "You will unsubscribe."),
+                        "Unsubscribe from one of our services.")
+                        .addOptions(serviceOption),
 
                 Commands.slash("subscribers",
-                        "You will see the subscribers."),
+                        "Show the subscribers.")
+                        .addOptions(serviceOption)
+                        .addOption(OptionType.INTEGER,
+                                "page",
+                                "Page number",
+                                true),
 
                 Commands.slash("music",
                         "Joins vc and plays music.")
                         .addOption(OptionType.STRING,
                                 "source",
-                                "Supports: .mp3 files and playlists", true),
+                                "playlist: Telegram. Supports: .mp3 files and playlists",
+                                true),
 
                 Commands.slash("pause", "Pause the current track"),
                 Commands.slash("resume", "Resume the current track"),
@@ -56,6 +65,9 @@ public class GuildListener extends ListenerAdapter {
                                 "Volume level between 0 and 100", true)
         ).queue();
 
-        App.jda.getPresence().setActivity(Activity.listening("Music bot and daily promises. Only one playlist: Telegram"));
+        App.jda.getPresence()
+                .setActivity(
+                        Activity.listening(
+                  "Music and message bot. Only one playlist: Telegram"));
     }
 }

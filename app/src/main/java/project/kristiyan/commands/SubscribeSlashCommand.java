@@ -2,12 +2,15 @@ package project.kristiyan.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.jetbrains.annotations.NotNull;
 import project.kristiyan.App;
 import project.kristiyan.database.entities.UserEntity;
+import project.kristiyan.enums.Services;
+import project.kristiyan.utilities.TimerUtility;
 
 import java.awt.*;
 
@@ -24,56 +27,54 @@ public class SubscribeSlashCommand extends ListenerAdapter {
             return;
         }
 
-        long memberId = member.getIdLong();
-        for (UserEntity UserEntity : App.database.getUsers()) {
-            if (UserEntity.id == memberId) {
-                EmbedBuilder embedBuilder = new EmbedBuilder();
-                embedBuilder.setTitle("Already subscribed");
-                embedBuilder.setColor(Color.GREEN);
+        OptionMapping timeMapping = event.getOption("time");
+        OptionMapping serviceMapping = event.getOption("service");
+        if (timeMapping == null || serviceMapping == null) {
+            return;
+        }
 
-                event.replyEmbeds(embedBuilder.build()).queue();
+        String time = timeMapping.getAsString();
+        if (!TimerUtility.isValidTimeFormat(time)) {
+            EmbedBuilder error = new EmbedBuilder();
+            error.setTitle("Invalid time format. Try: Hours:Minutes Timezone. Example: 8:30 Europe/Helsinki");
+            error.setColor(Color.RED);
+            event.replyEmbeds(error.build()).queue();
+            return;
+        }
+
+        Services services = Services.valueOf(serviceMapping.getAsString());
+
+        EmbedBuilder _alreadySub = new EmbedBuilder();
+        _alreadySub.setTitle("Already subscribed the "+services.name()+" service.");
+        _alreadySub.setColor(Color.GREEN);
+
+        MessageEmbed alreadySub = _alreadySub.build();
+
+        long user_id = member.getIdLong();
+        if (services.equals(Services.Promises)) {
+            if (App.promiseDao.checkIfPromiseEntityExistsByUserId(user_id)) {
+                event.replyEmbeds(alreadySub).queue();
                 return;
             }
-        }
 
-        OptionMapping optionMapping_time = event.getOption("time");
-        if (optionMapping_time == null) {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle("Provide time and timezone. Example: 8:30 Europe/Helsinki");
-            embedBuilder.setColor(Color.RED);
+            App.promiseDao.subscribe(
+                    new UserEntity(user_id, member.getEffectiveName()),
+                    time);
 
-            event.replyEmbeds(embedBuilder.build()).queue();
-            return;
-        }
+        } else if (services.equals(Services.Reminders)) {
+            if (App.reminderDao.checkIfReminderEntityExistsByUserId(user_id)) {
+                event.replyEmbeds(alreadySub).queue();
+                return;
+            }
 
-        String time = optionMapping_time.getAsString();
-
-        String[] parts = time.split(" ");
-        if (parts.length != 2 || !parts[0].contains(":")) {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle("Invalid provided time and timezone format");
-            embedBuilder.addField("Example" , "8:30 Europe/Helsinki", false);
-            embedBuilder.setColor(Color.RED);
-
-            event.replyEmbeds(embedBuilder.build()).queue();
-            return;
-        }
-
-        try {
-            App.database.insertUser(
-                    new UserEntity(memberId, member.getEffectiveName(), time, false ,));
-
-        } catch (Exception e) {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle("Error subscribing: "+e);
-            embedBuilder.setColor(Color.RED);
-
-            event.replyEmbeds(embedBuilder.build()).queue();
-            return;
+            App.reminderDao.subscribe(
+                    new UserEntity(user_id, member.getEffectiveName()),
+                    time);
         }
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Subscribed");
+        embedBuilder.setAuthor("Service - "+services.name());
         embedBuilder.addField(member.getEffectiveName(), time, false);
         embedBuilder.setColor(Color.GREEN);
 

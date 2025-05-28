@@ -3,13 +3,14 @@
              version="3.0">
     <persistence-unit name="db">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.example.Person</class>
+        <class>project.kristiyan.database.entities.PromiseEntity</class>
+        <class>project.kristiyan.database.entities.UserEntity</class>
 
         <properties>
             <!-- SQLite JDBC URL -->
             <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:users.sqlite"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.community.dialect.SQLiteDialect"/>
 
             <!-- Schema generation -->
             <property name="hibernate.hbm2ddl.auto" value="update"/>

@@ -32,8 +32,8 @@ dependencies {
     implementation(libs.logback)
     implementation(libs.lavaplayer)
     implementation(libs.jpa)
-    implementation(libs.lombok)
     implementation(libs.hibernate)
+    implementation(libs.hibernateCommunityDialects)
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

@@ -1,13 +1,9 @@
 package project.kristiyan.database.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users")
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserEntity {
 
     @Id
@@ -15,5 +11,12 @@ public class UserEntity {
     public long id;
 
     @Column(nullable = false)
-    public String username;
+    public String name;
+
+    public UserEntity(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public UserEntity() {}
 }

@@ -1,16 +1,16 @@
 package project.kristiyan.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.jetbrains.annotations.NotNull;
 import project.kristiyan.App;
-import project.kristiyan.database.entities.UserEntity;
+import project.kristiyan.database.entities.PromiseEntity;
+import project.kristiyan.database.entities.ReminderEntity;
+import project.kristiyan.enums.Services;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SubscribersSlashCommand extends ListenerAdapter {
 
@@ -21,42 +21,36 @@ public class SubscribersSlashCommand extends ListenerAdapter {
             return;
         }
 
-        List<MessageEmbed> embeds = new ArrayList<>();
-
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle("Subscribers");
-        embedBuilder.setAuthor("These users will receive the daily messages");
-        embedBuilder.setColor(Color.GREEN);
-
-        int num = 0;
-
-        List<UserEntity> userEntities = App.database.getUsers();
-        int size = userEntities.size();
-        for (int i = 0; i < size; i++) {
-            UserEntity user = userEntities.get(i);
-            embedBuilder.addField(user.username, user.time, false);
-
-            if (num >= 25 || (i == size - 1)) {
-                embeds.add(embedBuilder.build());
-
-                embedBuilder = new EmbedBuilder();
-                embedBuilder.setTitle("Subscribers");
-                embedBuilder.setAuthor("These users will receive the daily messages");
-                embedBuilder.setColor(Color.GREEN);
-                num = 0;
-            }
-            num++;
-        }
-
-        if (embeds.isEmpty()) {
-            EmbedBuilder embedBuilderNoSub = new EmbedBuilder();
-            embedBuilderNoSub.setTitle("No subscribers");
-            embedBuilderNoSub.setColor(Color.GREEN);
-
-            event.replyEmbeds(embedBuilderNoSub.build()).queue();
+        OptionMapping pageMapping = event.getOption("page");
+        OptionMapping serviceMapping = event.getOption("service");
+        if (pageMapping == null || serviceMapping == null) {
             return;
         }
 
-        event.replyEmbeds(embeds).queue();
+        int page = pageMapping.getAsInt();
+        Services services = Services.valueOf(serviceMapping.getAsString());
+
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        embedBuilder.setTitle("Subscribers");
+        embedBuilder.setColor(Color.GREEN);
+
+        if (services.equals(Services.Promises)) {
+            embedBuilder.setAuthor("Promises Service - Page "+page);
+
+            for (PromiseEntity promiseEntity : App.promiseDao.getUsers(page)) {
+                embedBuilder.addField(promiseEntity.userEntity.name,
+                        promiseEntity.time, false);
+            }
+
+        } else if (services.equals(Services.Reminders)) {
+            embedBuilder.setAuthor("Reminders Service - Page "+page);
+
+            for (ReminderEntity reminderEntity : App.reminderDao.getUsers(page)) {
+                embedBuilder.addField(reminderEntity.userEntity.name,
+                        reminderEntity.time, false);
+            }
+        }
+
+        event.replyEmbeds(embedBuilder.build()).queue();
     }
 }

@@ -10,8 +10,8 @@ slf4j = "2.0.17"
 logback = "1.5.18"
 lavaplayer = "2.2.3"
 jpa = "3.2.0"
-lombok = "1.18.38"
 hibernate = "7.0.0.Final"
+hibernateCommunityDialects = "7.0.0.Final"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
@@ -36,9 +36,8 @@ lavaplayer = { module = "dev.arbjerg:lavaplayer", version.ref = "lavaplayer" }
 # https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api/3.2.0
 jpa = { module = "jakarta.persistence:jakarta.persistence-api", version.ref = "jpa" }
 
-# https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.38
-lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
-
 # https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
 hibernate = { module = "org.hibernate.orm:hibernate-core", version.ref = "hibernate" }
 
+# https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-community-dialects
+hibernateCommunityDialects = { module = "org.hibernate.orm:hibernate-community-dialects", version.ref = "hibernateCommunityDialects" }

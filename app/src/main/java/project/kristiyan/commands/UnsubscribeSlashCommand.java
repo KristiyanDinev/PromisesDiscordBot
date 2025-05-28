@@ -2,10 +2,13 @@ package project.kristiyan.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.jetbrains.annotations.NotNull;
 import project.kristiyan.App;
+import project.kristiyan.enums.Services;
 
 import java.awt.*;
 
@@ -22,21 +25,35 @@ public class UnsubscribeSlashCommand extends ListenerAdapter {
             return;
         }
 
-        try {
-            App.database.deleteUser(member.getIdLong());
-
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle("Unsubscribed");
-            embedBuilder.setColor(Color.GREEN);
-
-            event.replyEmbeds(embedBuilder.build()).queue();
-
-        } catch (Exception e) {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle("Error unsubscribing");
-            embedBuilder.setColor(Color.RED);
-
-            event.replyEmbeds(embedBuilder.build()).queue();
+        OptionMapping serviceMapping = event.getOption("service");
+        if (serviceMapping == null) {
+            return;
         }
+
+        Services services = Services.valueOf(serviceMapping.getAsString());
+
+        long user_id = member.getIdLong();
+
+        EmbedBuilder _unsubscribedEmbed = new EmbedBuilder();
+        _unsubscribedEmbed.setTitle("Unsubscribed");
+        _unsubscribedEmbed.setColor(Color.GREEN);
+
+        EmbedBuilder _errorUnsubscribedEmbed = new EmbedBuilder();
+        _errorUnsubscribedEmbed.setTitle("Couldn't unsubscribe");
+        _errorUnsubscribedEmbed.setColor(Color.RED);
+
+        MessageEmbed ErrorUnsubscribedEmbed = _errorUnsubscribedEmbed.build();
+        MessageEmbed UnsubscribedEmbed = _unsubscribedEmbed.build();
+
+        if (services.equals(Services.Promises) && !App.promiseDao.unsubscribe(user_id)) {
+            event.replyEmbeds(ErrorUnsubscribedEmbed).queue();
+            return;
+
+        } else if (services.equals(Services.Reminders) && !App.reminderDao.unsubscribe(user_id)) {
+            event.replyEmbeds(ErrorUnsubscribedEmbed).queue();
+            return;
+        }
+
+        event.replyEmbeds(UnsubscribedEmbed).queue();
     }
 }

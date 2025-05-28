@@ -1,18 +1,14 @@
 package project.kristiyan.database.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "promises_service")
-@AllArgsConstructor
-@NoArgsConstructor
 public class PromiseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long id;
+    public int id;
 
     @Column(nullable = false)
     public String time;
@@ -20,4 +16,12 @@ public class PromiseEntity {
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     public UserEntity userEntity;
+
+    public PromiseEntity() {}
+
+    public PromiseEntity(int id, String time, UserEntity userEntity) {
+        this.id = id;
+        this.time = time;
+        this.userEntity = userEntity;
+    }
 }
