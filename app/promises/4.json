@@ -3,7 +3,7 @@
     "footer": "File 4.json - Kings James Version (KJV)",
     "color": "green",
     "url": "",
-    "image": "",
+    "image": "https://cdn.discordapp.com/attachments/1373997423160197130/1377668234941173790/male-lifting-weight-1296x728-header.png?ex=6839cd07&is=68387b87&hm=4f074a26ea419a129ab8188f38995c4d2971b4e22b728eed33478bd01fbedc5c&",
   
     "fields": [
 
@@ -124,6 +124,12 @@
       {
         "name": "Psalms 22:19",
         "value": "19 But be not thou far from me, O Lord: O my strength, haste thee to help me.",
+        "inline": false
+      },
+
+      {
+        "name": "Isaiah 26:4",
+        "value": "4 Trust ye in the LORD for ever: for in the LORD JEHOVAH is everlasting strength:",
         "inline": false
       },
 

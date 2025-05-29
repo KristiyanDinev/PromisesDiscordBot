@@ -3,7 +3,7 @@
   "footer": "File 7.json - Kings James Version (KJV)",
   "color": "green",
   "url": "",
-  "image": "",
+  "image": "https://cdn.discordapp.com/attachments/1373997423160197130/1377666858089451520/stack-of-stones-in-calm-ocean.png?ex=6839cbbe&is=68387a3e&hm=c99204d5dfcef50ec256e0e295828f4fa5fdab58ddece8e35f766e11bb2052d2&",
 
   "fields": [
 
@@ -80,12 +80,142 @@
     },
 
     {
+      "name": "Proverbs 11:12",
+      "value": "12 He that is void of wisdom despiseth his neighbour: but a man of understanding holdeth his peace.",
+      "inline": false
+    },
+
+    {
       "name": "Proverbs 12:20",
       "value": "20 Deceit is in the heart of them that imagine evil: but to the counsellors of peace is joy.",
       "inline": false
     },
 
+    {
+      "name": "Proverbs 16:7",
+      "value": "7 When a man's ways please the LORD, he maketh even his enemies to be at peace with him.",
+      "inline": false
+    },
 
+    {
+      "name": "Proverbs 16:28",
+      "value": "28 Even a fool, when he holdeth his peace, is counted wise: and he that shutteth his lips is esteemed a man of understanding.",
+      "inline": false
+    },
+
+    {
+      "name": "Ecclesiastes 3:8",
+      "value": "8 A time to love, and a time to hate; a time of war, and a time of peace.",
+      "inline": false
+    },
+
+    {
+      "name": "Isaiah 26:3",
+      "value": "3 Thou wilt keep him in perfect peace, whose mind is stayed on thee: because he trusteth in thee.",
+      "inline": false
+    },
+
+    {
+      "name": "Isaiah 26:12",
+      "value": "12 LORD, thou wilt ordain peace for us: for thou also hast wrought all our works in us.",
+      "inline": false
+    },
+
+    {
+      "name": "Isaiah 48:22",
+      "value": "22 There is no peace, saith the LORD, unto the wicked.",
+      "inline": false
+    },
+
+    {
+      "name": "Isaiah 54:13",
+      "value": "13 And all thy children shall be taught of the LORD; and great shall be the peace of thy children.",
+      "inline": false
+    },
+
+    {
+      "name": "Isaiah 57:2",
+      "value": "2 He shall enter into peace: they shall rest in their beds, each one walking in his uprightness.",
+      "inline": false
+    },
+
+    {
+      "name": "Isaiah 57:19",
+      "value": "19 I create the fruit of the lips; Peace, peace to him that is far off, and to him that is near, saith the LORD; and I will heal him.",
+      "inline": false
+    },
+
+    {
+      "name": "Jeremiah 29:11",
+      "value": "11 For I know the thoughts that I think toward you, saith the LORD, thoughts of peace, and not of evil, to give you an expected end.",
+      "inline": false
+    },
+
+    {
+      "name": "Luke 1:78-79",
+      "value": "78 Through the tender mercy of our God; whereby the dayspring from on high hath visited us,\n\n79 To give light to them that sit in darkness and in the shadow of death, to guide our feet into the way of peace.",
+      "inline": false
+    },
+
+    {
+      "name": "John 14:27",
+      "value": "27 Peace I leave with you, my peace I give unto you: not as the world giveth, give I unto you. Let not your heart be troubled, neither let it be afraid.",
+      "inline": false
+    },
+
+    {
+      "name": "John 16:33",
+      "value": "33 These things I have spoken unto you, that in me ye might have peace. In the world ye shall have tribulation: but be of good cheer; I have overcome the world.",
+      "inline": false
+    },
+
+    {
+      "name": "John 20:21",
+      "value": "21 Then said Jesus to them again, Peace be unto you: as my Father hath sent me, even so send I you.",
+      "inline": false
+    },
+
+    {
+      "name": "Romans 5:1",
+      "value": "1 Therefore being justified by faith, we have peace with God through our Lord Jesus Christ:",
+      "inline": false
+    },
+
+    {
+      "name": "Romans 8:6",
+      "value": "6 For to be carnally minded is death; but to be spiritually minded is life and peace.",
+      "inline": false
+    },
+
+    {
+      "name": "Romans 14:17",
+      "value": "17 For the kingdom of God is not meat and drink; but righteousness, and peace, and joy in the Holy Ghost.",
+      "inline": false
+    },
+
+    {
+      "name": "Galatians 5:22",
+      "value": "22 But the fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith,",
+      "inline": false
+    },
+
+    {
+      "name": "Philippians 4:7",
+      "value": "7 And the peace of God, which passeth all understanding, shall keep your hearts and minds through Christ Jesus.",
+      "inline": false
+    },
+
+    {
+      "name": "James 3:18",
+      "value": "18 And the fruit of righteousness is sown in peace of them that make peace.",
+      "inline": false
+    },
+
+    {
+      "name": "Revelation 6:4",
+      "value": "4 And there went out another horse that was red: and power was given to him that sat thereon to take peace from the earth, and that they should kill one another: and there was given unto him a great sword.",
+      "inline": false
+    },
 
     {
       "name": "Study",
@@ -96,6 +226,18 @@
     {
       "name": "Numbers 25:10-13",
       "value": "10 And the Lord spake unto Moses, saying,\n\n11 Phinehas, the son of Eleazar, the son of Aaron the priest, hath turned my wrath away from the children of Israel, while he was zealous for my sake among them, that I consumed not the children of Israel in my jealousy.\n\n12 Wherefore say, Behold, I give unto him my covenant of peace:\n\n13 And he shall have it, and his seed after him, even the covenant of an everlasting priesthood; because he was zealous for his God, and made an atonement for the children of Israel.",
+      "inline": false
+    },
+
+    {
+      "name": "Ezekiel 37:26",
+      "value": "26 Moreover I will make a covenant of peace with them; it shall be an everlasting covenant with them: and I will place them, and multiply them, and will set my sanctuary in the midst of them for evermore.",
+      "inline": false
+    },
+
+    {
+      "name": "Malachi 2:5-6",
+      "value": "5 My covenant was with him of life and peace; and I gave them to him for the fear wherewith he feared me, and was afraid before my name.\n\n6 The law of truth was in his mouth, and iniquity was not found in his lips: he walked with me in peace and equity, and did turn many away from iniquity.",
       "inline": false
     },
 
