@@ -35,15 +35,14 @@ public class UnsubscribeSlashCommand extends ListenerAdapter {
         long user_id = member.getIdLong();
 
         EmbedBuilder _unsubscribedEmbed = new EmbedBuilder();
-        _unsubscribedEmbed.setTitle("Unsubscribed");
+        _unsubscribedEmbed.setTitle("Unsubscribed from "+services.name()+" service");
         _unsubscribedEmbed.setColor(Color.GREEN);
 
         EmbedBuilder _errorUnsubscribedEmbed = new EmbedBuilder();
-        _errorUnsubscribedEmbed.setTitle("Couldn't unsubscribe");
+        _errorUnsubscribedEmbed.setTitle("Couldn't unsubscribe to "+services.name()+" service");
         _errorUnsubscribedEmbed.setColor(Color.RED);
 
         MessageEmbed ErrorUnsubscribedEmbed = _errorUnsubscribedEmbed.build();
-        MessageEmbed UnsubscribedEmbed = _unsubscribedEmbed.build();
 
         if (services.equals(Services.Promises) && !App.promiseDao.unsubscribe(user_id)) {
             event.replyEmbeds(ErrorUnsubscribedEmbed).queue();
@@ -54,6 +53,6 @@ public class UnsubscribeSlashCommand extends ListenerAdapter {
             return;
         }
 
-        event.replyEmbeds(UnsubscribedEmbed).queue();
+        event.replyEmbeds(_unsubscribedEmbed.build()).queue();
     }
 }

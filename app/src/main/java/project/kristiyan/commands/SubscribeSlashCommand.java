@@ -34,7 +34,7 @@ public class SubscribeSlashCommand extends ListenerAdapter {
         }
 
         String time = timeMapping.getAsString();
-        if (!TimerUtility.isValidTimeFormat(time)) {
+        if (TimerUtility.isInvalidTimeFormat(time)) {
             EmbedBuilder error = new EmbedBuilder();
             error.setTitle("Invalid time format. Try: Hours:Minutes Timezone. Example: 8:30 Europe/Helsinki");
             error.setColor(Color.RED);
@@ -45,7 +45,7 @@ public class SubscribeSlashCommand extends ListenerAdapter {
         Services services = Services.valueOf(serviceMapping.getAsString());
 
         EmbedBuilder _alreadySub = new EmbedBuilder();
-        _alreadySub.setTitle("Already subscribed the "+services.name()+" service.");
+        _alreadySub.setTitle("Already subscribed the "+services.name()+" service");
         _alreadySub.setColor(Color.GREEN);
 
         MessageEmbed alreadySub = _alreadySub.build();

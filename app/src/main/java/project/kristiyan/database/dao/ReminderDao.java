@@ -1,13 +1,11 @@
 package project.kristiyan.database.dao;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import project.kristiyan.App;
 import project.kristiyan.database.entities.ReminderEntity;
 import project.kristiyan.database.entities.UserEntity;
 
@@ -17,6 +15,7 @@ import java.util.List;
 public class ReminderDao {
     private final EntityManager em;
     private final int page_amount = 10;
+    private final String insertReminderSQL = "INSERT INTO reminder_service (time, user_id) VALUES (:time, :user_id);";
 
     public ReminderDao(EntityManager em) {
         this.em = em;
@@ -26,28 +25,48 @@ public class ReminderDao {
         em.close();
     }
 
+    private boolean saveReminder_NoTransaction(ReminderEntity reminderEntity) {
+        try {
+            Query query = em.createNativeQuery(insertReminderSQL);
+            query = query.setParameter("time", reminderEntity.time);
+            query = query.setParameter("user_id", reminderEntity.userEntity.id);
+
+            int saved = query.executeUpdate();
+            return saved > 0;
+
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
     // can be detached | id needed
     public void subscribe(UserEntity user, String time) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
 
-            // Check if user exists and handle accordingly
-            UserEntity managedUser = handleUserEntity(user);
+            UserEntity userEntity = App.userDao.getUserById(user.id);
+            if (userEntity == null && !App.userDao.saveUser(user)) {
+                throw new Exception();
+            }
 
             // Check if reminder already exists for this user
-            ReminderEntity existingReminder = findReminderByUserId(managedUser.id);
+            ReminderEntity existingReminder = findReminderByUserId(user.id);
 
             if (existingReminder != null) {
                 // Update existing reminder
                 existingReminder.time = time;
                 // No need to call merge/persist, it's already managed
+
             } else {
                 // Create new reminder
                 ReminderEntity reminderEntity = new ReminderEntity();
                 reminderEntity.time = time;
-                reminderEntity.userEntity = managedUser;
-                em.persist(reminderEntity);
+                reminderEntity.userEntity = user;
+
+                if (!saveReminder_NoTransaction(reminderEntity)) {
+                    throw new Exception();
+                }
             }
 
             tx.commit();
@@ -55,32 +74,6 @@ public class ReminderDao {
         } catch (Exception e) {
             if (tx.isActive()) {
                 tx.rollback();
-            }
-        }
-    }
-
-    // Helper method to handle user entity (detached vs existing)
-    private UserEntity handleUserEntity(UserEntity user) {
-        if (user.id == 0) {
-            // New user without ID - persist it
-            em.persist(user);
-            return user;
-
-        } else {
-            // User has ID - check if it exists in database
-            UserEntity existingUser = em.find(UserEntity.class, user.id);
-            if (existingUser != null) {
-                // User exists - return managed instance
-                return existingUser;
-
-            } else {
-                // User doesn't exist but has ID - this is problematic with IDENTITY generation
-                // Create a new user entity without the ID and let the database generate it
-                UserEntity newUser = new UserEntity();
-                newUser.name = user.name;
-                // Don't set the ID - let the database generate it
-                em.persist(newUser);
-                return newUser;
             }
         }
     }
@@ -131,6 +124,9 @@ public class ReminderDao {
     }
 
     public List<ReminderEntity> getUsers(int page) {
+        // If user gives page 1. Convert it to 0, so the algorithm may work.
+        page -= 1;
+
         // Read operations don't typically need transactions, but it's safer to use them
         EntityTransaction tx = em.getTransaction();
         try {

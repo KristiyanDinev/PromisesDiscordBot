@@ -32,15 +32,15 @@ public class GuildListener extends ListenerAdapter {
 
         event.getGuild().updateCommands().addCommands(
                 Commands.slash("subscribe",
-                                "Subscribe for one of our services.")
+                                "Subscribe for one of our services")
                         .addOptions(timeOption, serviceOption),
 
                 Commands.slash("unsubscribe",
-                        "Unsubscribe from one of our services.")
+                        "Unsubscribe from one of our services")
                         .addOptions(serviceOption),
 
                 Commands.slash("subscribers",
-                        "Show the subscribers.")
+                        "Show the subscribers")
                         .addOptions(serviceOption)
                         .addOption(OptionType.INTEGER,
                                 "page",
@@ -48,10 +48,10 @@ public class GuildListener extends ListenerAdapter {
                                 true),
 
                 Commands.slash("music",
-                        "Joins vc and plays music.")
+                        "Joins vc and plays music")
                         .addOption(OptionType.STRING,
                                 "source",
-                                "playlist: Telegram. Supports: .mp3 files and playlists",
+                                "playlists: Telegram, Fingerstyle. Supports: .mp3 files and playlists",
                                 true),
 
                 Commands.slash("pause", "Pause the current track"),
@@ -68,6 +68,6 @@ public class GuildListener extends ListenerAdapter {
         App.jda.getPresence()
                 .setActivity(
                         Activity.listening(
-                  "Music and message bot. Only one playlist: Telegram"));
+                  "Music and message bot"));
     }
 }

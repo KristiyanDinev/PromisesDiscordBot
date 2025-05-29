@@ -2,9 +2,10 @@ package project.kristiyan.database.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
+import project.kristiyan.App;
 import project.kristiyan.database.entities.PromiseEntity;
 import project.kristiyan.database.entities.UserEntity;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class PromiseDao {
     private EntityManager em;
     private final int page_amount = 10;
+    private final String insertPromiseSQL = "INSERT INTO promises_service (time, user_id) VALUES (:time, :user_id);";
 
     public PromiseDao(EntityManager em) {
         this.em = em;
@@ -24,28 +26,48 @@ public class PromiseDao {
         em.close();
     }
 
+    private boolean savePromise_NoTransaction(PromiseEntity promiseEntity) {
+        try {
+            Query query = em.createNativeQuery(insertPromiseSQL);
+            query = query.setParameter("time", promiseEntity.time);
+            query = query.setParameter("user_id", promiseEntity.userEntity.id);
+
+            int saved = query.executeUpdate();
+            return saved > 0;
+
+        } catch (Exception ignore) {
+            return false;
+        }
+    }
+
     // can be detached | id needed
     public void subscribe(UserEntity user, String time) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
 
-            // Check if user exists and handle accordingly
-            UserEntity managedUser = handleUserEntity(user);
+            UserEntity userEntity = App.userDao.getUserById(user.id);
+            if (userEntity == null && !App.userDao.saveUser(user)) {
+                throw new Exception();
+            }
 
             // Check if promise already exists for this user
-            PromiseEntity existingPromise = findPromiseByUserId(managedUser.id);
+            PromiseEntity existingPromise = findPromiseByUserId(user.id);
 
             if (existingPromise != null) {
                 // Update existing promise
                 existingPromise.time = time;
                 // No need to call merge/persist, it's already managed
+
             } else {
                 // Create new promise
                 PromiseEntity promiseEntity = new PromiseEntity();
                 promiseEntity.time = time;
-                promiseEntity.userEntity = managedUser;
-                em.persist(promiseEntity);
+                promiseEntity.userEntity = user;
+
+                if (!savePromise_NoTransaction(promiseEntity)) {
+                    throw new Exception();
+                }
             }
 
             tx.commit();
@@ -53,32 +75,6 @@ public class PromiseDao {
         } catch (Exception e) {
             if (tx.isActive()) {
                 tx.rollback();
-            }
-        }
-    }
-
-    // Helper method to handle user entity (detached vs existing)
-    private UserEntity handleUserEntity(UserEntity user) {
-        if (user.id == 0) {
-            // New user without ID - persist it
-            em.persist(user);
-            return user;
-
-        } else {
-            // User has ID - check if it exists in database
-            UserEntity existingUser = em.find(UserEntity.class, user.id);
-            if (existingUser != null) {
-                // User exists - return managed instance
-                return existingUser;
-
-            } else {
-                // User doesn't exist but has ID - this is problematic with IDENTITY generation
-                // Create a new user entity without the ID and let the database generate it
-                UserEntity newUser = new UserEntity();
-                newUser.name = user.name;
-                // Don't set the ID - let the database generate it
-                em.persist(newUser);
-                return newUser;
             }
         }
     }
@@ -95,7 +91,7 @@ public class PromiseDao {
 
             return em.createQuery(query).getSingleResult();
 
-        } catch (NoResultException e) {
+        } catch (Exception e) {
             return null; // No promise found for this user
         }
     }
@@ -130,6 +126,8 @@ public class PromiseDao {
     }
 
     public List<PromiseEntity> getUsers(int page) {
+        page -= 1;
+
         // Read operations don't typically need transactions, but it's safer to use them
         EntityTransaction tx = em.getTransaction();
         try {
@@ -175,7 +173,8 @@ public class PromiseDao {
                 em.createQuery(query).getSingleResult();
                 tx.commit();
                 return true; // Found promise for this user
-            } catch (NoResultException e) {
+
+            } catch (Exception e) {
                 tx.commit();
                 return false; // No promise found for this user
             }
@@ -183,7 +182,8 @@ public class PromiseDao {
             if (tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Failed to check if promise exists for user", e);
         }
+
+        return false;
     }
 }

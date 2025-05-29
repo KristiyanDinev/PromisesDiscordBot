@@ -4,6 +4,7 @@
     <persistence-unit name="db">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>project.kristiyan.database.entities.PromiseEntity</class>
+        <class>project.kristiyan.database.entities.ReminderEntity</class>
         <class>project.kristiyan.database.entities.UserEntity</class>
 
         <properties>

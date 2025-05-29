@@ -33,18 +33,15 @@ public class SubscribersSlashCommand extends ListenerAdapter {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Subscribers");
         embedBuilder.setColor(Color.GREEN);
+        embedBuilder.setAuthor(services.name()+" Service - Page "+page);
 
         if (services.equals(Services.Promises)) {
-            embedBuilder.setAuthor("Promises Service - Page "+page);
-
             for (PromiseEntity promiseEntity : App.promiseDao.getUsers(page)) {
                 embedBuilder.addField(promiseEntity.userEntity.name,
                         promiseEntity.time, false);
             }
 
         } else if (services.equals(Services.Reminders)) {
-            embedBuilder.setAuthor("Reminders Service - Page "+page);
-
             for (ReminderEntity reminderEntity : App.reminderDao.getUsers(page)) {
                 embedBuilder.addField(reminderEntity.userEntity.name,
                         reminderEntity.time, false);

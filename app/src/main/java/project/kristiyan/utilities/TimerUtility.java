@@ -1,6 +1,8 @@
 package project.kristiyan.utilities;
 
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import project.kristiyan.App;
@@ -9,6 +11,7 @@ import project.kristiyan.database.dao.ReminderDao;
 import project.kristiyan.database.entities.PromiseEntity;
 import project.kristiyan.database.entities.ReminderEntity;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,7 +19,6 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -142,17 +144,15 @@ public class TimerUtility {
     }
 
     private void processPromisesBatch(List<PromiseEntity> promiseEntities) {
-        // Cache files once per batch instead of per entity
         List<File> files = App.utility.getFiles("promises/");
         if (files.isEmpty()) {
             return;
         }
 
-        Collections.shuffle(files);
+        File file = files.get((int)(Math.random() * files.size()));
         String promiseContent = null;
-
         try {
-            promiseContent = Files.readString(Paths.get(files.getFirst().getPath()));
+            promiseContent = Files.readString(Paths.get(file.getPath()));
 
         } catch (Exception e) {
             return;
@@ -160,23 +160,20 @@ public class TimerUtility {
 
         for (PromiseEntity promiseEntity : promiseEntities) {
             try {
-                if (!isTimeToSend(promiseEntity.time)) {
-                    continue; // Use continue instead of return to process other entities
-                }
-
-                User user_obj = jda.getUserById(promiseEntity.userEntity.id);
-                if (user_obj == null) {
+                if (isNotTimeToSend(promiseEntity.time)) {
                     continue;
                 }
 
-                PrivateChannel channel = user_obj.openPrivateChannel()
-                        .useCache(false).complete();
+                User user2 = getUserById(promiseEntity.userEntity.id);
+                User user = jda.getUserById(promiseEntity.userEntity.id);
+                if (user == null) {
+                    continue;
+                }
 
-                // Make effectively final for lambda
+                PrivateChannel channel = user.openPrivateChannel()
+                        .useCache(false).complete();
                 channel.sendMessageEmbeds(App.utility.buildEmbed(promiseContent))
-                        .queue(
-                                success -> {} // Success callback
-                        );
+                        .queue();
 
             } catch (Exception ignored) {
             }
@@ -184,41 +181,39 @@ public class TimerUtility {
     }
 
     private void processRemindersBatch(List<ReminderEntity> reminderEntities) {
-        // Cache reminder content once per batch
-        String reminderContent = null;
-
-        try {
-            reminderContent = Files.readString(Paths.get("settings.json"));
-
-        } catch (Exception e) {
-            return;
-        }
-
         for (ReminderEntity reminderEntity : reminderEntities) {
             try {
-                if (!isTimeToSend(reminderEntity.time)) {
-                    continue; // Use continue instead of return
-                }
-
-                User user_obj = jda.getUserById(reminderEntity.userEntity.id);
-                if (user_obj == null) {
+                if (isNotTimeToSend(reminderEntity.time)) {
                     continue;
                 }
 
-                PrivateChannel channel = user_obj.openPrivateChannel()
-                        .useCache(false).complete();
+                User user = getUserById(reminderEntity.userEntity.id);
+                if (user == null) {
+                    continue;
+                }
 
-                // Make effectively final for lambda
+                PrivateChannel channel = user.openPrivateChannel()
+                        .useCache(false).complete();
+                /*
                 channel.sendMessageEmbeds(App.utility.buildEmbed(reminderContent))
-                        .queue(
-                                success -> {}, // Success callback
-                                error -> System.err.println("Failed to send reminder to user " +
-                                        reminderEntity.userEntity.id + ": " + error.getMessage())
-                        );
+                        .queue();*/
+
+                channel.sendMessage("Hello. Reminder Service.")
+                        .queue();
 
             } catch (Exception ignored) {
             }
         }
+    }
+
+    private User getUserById(long id) {
+        for (Guild g : jda.getGuilds()) {
+            Member member = g.getMemberById(id);
+            if (member != null) {
+                return member.getUser();
+            }
+        }
+        return null;
     }
 
     /**
@@ -228,37 +223,27 @@ public class TimerUtility {
      * @param timeString The time string in "HH:mm Timezone" format
      * @return true if it's time to send the message, false otherwise
      */
-    private boolean isTimeToSend(String timeString) {
-        if (!isValidTimeFormat(timeString)) {
-            return false;
+    private boolean isNotTimeToSend(String timeString) {
+        if (isInvalidTimeFormat(timeString)) {
+            return true;
         }
 
         try {
             // Parse the time string "HH:mm Timezone"
             String[] parts = timeString.trim().split(" ", 2);
-            if (parts.length != 2) {
-                System.err.println("Invalid time format: " + timeString + " (expected: HH:mm Timezone)");
-                return false;
-            }
-
-            String timeStr = parts[0]; // HH:mm
-            String timezoneStr = parts[1]; // Timezone
 
             // Parse the time and timezone
-            LocalTime targetTime = LocalTime.parse(timeStr, TIME_FORMATTER);
-            ZoneId timezone = ZoneId.of(timezoneStr);
+            LocalTime targetTime = LocalTime.parse(parts[0], TIME_FORMATTER);
 
             // Get current time in the specified timezone
-            ZonedDateTime nowInTimezone = ZonedDateTime.now(timezone);
-            LocalTime currentTime = nowInTimezone.toLocalTime();
+            LocalTime currentTimeInZone = ZonedDateTime.now(ZoneId.of(parts[1])).toLocalTime();
 
             // Check if current time matches target time (within the same minute)
-            return currentTime.getHour() == targetTime.getHour() &&
-                    currentTime.getMinute() == targetTime.getMinute();
+            return currentTimeInZone.getHour() != targetTime.getHour() &&
+                    currentTimeInZone.getMinute() != targetTime.getMinute();
 
-        } catch (Exception e) {
-            System.err.println("Error checking time: " + e.getMessage());
-            return false;
+        } catch (Exception ignore) {
+            return true;
         }
     }
 
@@ -267,27 +252,32 @@ public class TimerUtility {
      * @param timeString The time string to validate
      * @return true if valid, false otherwise
      */
-    public static boolean isValidTimeFormat(String timeString) {
+    public static boolean isInvalidTimeFormat(String timeString) {
         if (timeString == null || timeString.trim().isEmpty()) {
-            return false;
+            return true;
         }
 
         try {
             String[] parts = timeString.trim().split(" ", 2);
             if (parts.length != 2) {
-                return false;
+                return true;
+            }
+
+            String time = parts[0];
+            if (time.charAt(1) == ':') {
+                time = "0" + time;
             }
 
             // Validate time format
-            LocalTime.parse(parts[0], TIME_FORMATTER);
+            LocalTime.parse(time, TIME_FORMATTER);
 
             // Validate timezone
             ZoneId.of(parts[1]);
 
-            return true;
+            return false;
 
         } catch (Exception e) {
-            return false;
+            return true;
         }
     }
 }
