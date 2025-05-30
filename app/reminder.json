@@ -3,7 +3,7 @@
   "footer": "Reminder - King James Version (KJV)",
   "color": "green",
   "url": "",
-  "image": "",
+  "image": "https://cdn.discordapp.com/attachments/1373997423160197130/1378051273085161603/prayer.png?ex=683b31c2&is=6839e042&hm=089b41db9aae61f49e842d3f5dc1f21a908b0521fc35d9a505f7db4ba29a7e28&",
 
   "fields": [
 
@@ -27,7 +27,7 @@
 
     {
       "name": "Bible Reading",
-      "value": "Don't forget to read the bible and to study it.",
+      "value": "Don't forget to read the bible daily and to study it.",
       "inline": false
     },
 
