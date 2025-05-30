@@ -1,22 +1,22 @@
-# PromisesDiscordBot
-A simple bot for messaging discord userEntities with a promise from the Bible and maybe some study.
-The configuration and the database should be in the same path as the JAR.
+# Promises Discord Bot
+A simple bot for messaging discord users with a promise from the Bible and maybe some study.
+The configuration and the database should be in the same path as the JAR or in the same directory as your execution command.
 
 ## Playlists
-`/playlists` folder will contain the playlists. Each playlist is inside a folder and that folder's name is the playlist's name, which should be inside that `/playlists` folder.
+`/playlists` folder will contain the **playlists**. Each playlist is inside a folder and that folder's name is the playlist's name.
 
 ## Database
-`userEntities.sqlite` will contain the subscribed members and their timezones.
+`users.sqlite` will contain the **subscribed** members, their timezones and their **subscribed** services.
 
 ## Promises
-`/promises` will contain the promises in JSON format. Each promise has it's own single file.
+`/promises` will contain the promises in **JSON** format. Each promise has its own single file.
 
 ### Format for promises
 
 A file name `name_of_file.json`
 
 **The author if any**
-- `"author": "John"`
+- `"author": "Daily Promise"`
 
 **The footer of the message**
 - `"footer": "File 1.json"`
@@ -79,6 +79,12 @@ Otherwise, the bot can't read the invalid JSON format.**
 }
 ```
 
+## Reminders
+
+`reminder.json` is the configuration to all **reminders** and follows the same format/pattern as the promises.
+It doesn't have to be in a specific folder, but as the database is, so is this file.
+
 ## Bot Token
 Put `DISCORD_BOT_TOKEN` as environment variable.
 
+- **Server Members Intent** is required. *(Check discord developer portal)*

@@ -24,10 +24,7 @@ public class UserDao {
 
     @Nullable
     public UserEntity getUserById(long id) {
-        EntityTransaction tx = em.getTransaction();
         try {
-            tx.begin();
-
             CriteriaBuilder builder = em.getCriteriaBuilder();
             CriteriaQuery<UserEntity> criteriaQuery = builder.createQuery(UserEntity.class);
             Root<UserEntity> root = criteriaQuery.from(UserEntity.class);
@@ -36,21 +33,14 @@ public class UserDao {
                     builder.equal(root.get("id"), id)
             );
 
-            UserEntity userEntity = em.createQuery(criteriaQuery).getSingleResult();
-            tx.commit();
+            return em.createQuery(criteriaQuery).getSingleResult();
 
-            return userEntity;
-
-        } catch (Exception e) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
+        } catch (Exception ignored) {
+            return null;
         }
-
-        return null;
     }
 
-    public boolean saveUser(UserEntity userEntity) {
+    public boolean saveUser_not(UserEntity userEntity) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -60,17 +50,17 @@ public class UserDao {
             query = query.setParameter("id", userEntity.id);
 
             int saved = query.executeUpdate();
-
             tx.commit();
+            em.clear();
 
-            return saved > 0;
+            return saved <= 0;
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
             if (tx.isActive()) {
                 tx.rollback();
             }
         }
 
-        return false;
+        return true;
     }
 }

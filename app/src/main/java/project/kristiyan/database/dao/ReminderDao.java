@@ -32,6 +32,8 @@ public class ReminderDao {
             query = query.setParameter("user_id", reminderEntity.userEntity.id);
 
             int saved = query.executeUpdate();
+            em.clear();
+
             return saved > 0;
 
         } catch (Exception ignored) {
@@ -46,7 +48,7 @@ public class ReminderDao {
             tx.begin();
 
             UserEntity userEntity = App.userDao.getUserById(user.id);
-            if (userEntity == null && !App.userDao.saveUser(user)) {
+            if (userEntity == null && App.userDao.saveUser_not(user)) {
                 throw new Exception();
             }
 
@@ -70,6 +72,7 @@ public class ReminderDao {
             }
 
             tx.commit();
+            em.clear();
 
         } catch (Exception e) {
             if (tx.isActive()) {
@@ -111,6 +114,7 @@ public class ReminderDao {
 
             int deletedCount = em.createQuery(delete).executeUpdate();
             tx.commit();
+            em.clear();
 
             return deletedCount > 0;
 
@@ -127,11 +131,7 @@ public class ReminderDao {
         // If user gives page 1. Convert it to 0, so the algorithm may work.
         page -= 1;
 
-        // Read operations don't typically need transactions, but it's safer to use them
-        EntityTransaction tx = em.getTransaction();
         try {
-            tx.begin();
-
             CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
             CriteriaQuery<ReminderEntity> query = criteriaBuilder.createQuery(ReminderEntity.class);
             query.from(ReminderEntity.class);
@@ -140,49 +140,28 @@ public class ReminderDao {
             typedQuery.setFirstResult(page * page_amount);
             typedQuery.setMaxResults(page_amount);
 
-            List<ReminderEntity> result = typedQuery.getResultList();
-            tx.commit();
+            return typedQuery.getResultList();
 
-            return result;
-
-        } catch (Exception e) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
+        } catch (Exception ignored) {
+            return new ArrayList<>();
         }
-
-        return new ArrayList<>();
     }
 
     public boolean checkIfReminderEntityExistsByUserId(long user_id) {
-        EntityTransaction tx = em.getTransaction();
         try {
-            tx.begin();
-
             CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
             CriteriaQuery<ReminderEntity> query = criteriaBuilder.createQuery(ReminderEntity.class);
             Root<ReminderEntity> root = query.from(ReminderEntity.class);
 
-            // Fixed: Use correct path to user ID
             query.where(
                     criteriaBuilder.equal(root.get("userEntity").get("id"), user_id)
             );
 
-            try {
-                em.createQuery(query).getSingleResult();
-                tx.commit();
-                return true; // Found reminder for this user
+           em.createQuery(query).getSingleResult();
+            return true; // Found reminder for this user
 
-            } catch (NoResultException e) {
-                tx.commit();
-                return false; // No reminder found for this user
-            }
-        } catch (Exception e) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
+        } catch (Exception ignored) {
+            return false;
         }
-
-        return false;
     }
 }

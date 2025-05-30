@@ -61,7 +61,7 @@ public class MusicCommand extends ListenerAdapter {
         VoiceChannel voiceChannel = voiceState.getChannel().asVoiceChannel();
 
         String source = optionMapping.getAsString();
-        File playlist = new File("playlists/"+source);
+        File playlist = new File(App.playlists+source);
 
         // load and play for the multiple file tracks.
         if (playlist.isDirectory()) {
@@ -84,7 +84,7 @@ public class MusicCommand extends ListenerAdapter {
             musicStarts(event, fileNames);
 
             for (String name : fileNames) {
-                loadAndPlay(event, voiceChannel, "playlists/"+source+"/"+name);
+                loadAndPlay(event, voiceChannel, App.playlists+source+"/"+name);
             }
 
         } else {

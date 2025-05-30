@@ -4,7 +4,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaDelete;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import project.kristiyan.App;
 import project.kristiyan.database.entities.PromiseEntity;
 import project.kristiyan.database.entities.UserEntity;
@@ -33,6 +36,8 @@ public class PromiseDao {
             query = query.setParameter("user_id", promiseEntity.userEntity.id);
 
             int saved = query.executeUpdate();
+            em.clear();
+
             return saved > 0;
 
         } catch (Exception ignore) {
@@ -47,7 +52,7 @@ public class PromiseDao {
             tx.begin();
 
             UserEntity userEntity = App.userDao.getUserById(user.id);
-            if (userEntity == null && !App.userDao.saveUser(user)) {
+            if (userEntity == null && App.userDao.saveUser_not(user)) {
                 throw new Exception();
             }
 
@@ -71,6 +76,7 @@ public class PromiseDao {
             }
 
             tx.commit();
+            em.clear();
 
         } catch (Exception e) {
             if (tx.isActive()) {
@@ -91,7 +97,7 @@ public class PromiseDao {
 
             return em.createQuery(query).getSingleResult();
 
-        } catch (Exception e) {
+        } catch (Exception ignore) {
             return null; // No promise found for this user
         }
     }
@@ -114,6 +120,8 @@ public class PromiseDao {
             int deletedCount = em.createQuery(delete).executeUpdate();
             tx.commit();
 
+            em.clear();
+
             return deletedCount > 0;
 
         } catch (Exception e) {
@@ -128,11 +136,7 @@ public class PromiseDao {
     public List<PromiseEntity> getUsers(int page) {
         page -= 1;
 
-        // Read operations don't typically need transactions, but it's safer to use them
-        EntityTransaction tx = em.getTransaction();
         try {
-            tx.begin();
-
             CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
             CriteriaQuery<PromiseEntity> query = criteriaBuilder.createQuery(PromiseEntity.class);
             query.from(PromiseEntity.class);
@@ -141,49 +145,29 @@ public class PromiseDao {
             typedQuery.setFirstResult(page * page_amount);
             typedQuery.setMaxResults(page_amount);
 
-            List<PromiseEntity> result = typedQuery.getResultList();
-            tx.commit();
+            return typedQuery.getResultList();
 
-            return result;
-
-        } catch (Exception e) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
+        } catch (Exception ignore) {
         }
 
         return new ArrayList<>();
     }
 
     public boolean checkIfPromiseEntityExistsByUserId(long user_id) {
-        EntityTransaction tx = em.getTransaction();
         try {
-            tx.begin();
-
             CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
             CriteriaQuery<PromiseEntity> query = criteriaBuilder.createQuery(PromiseEntity.class);
             Root<PromiseEntity> root = query.from(PromiseEntity.class);
 
-            // Fixed: Use correct path to user ID
             query.where(
                     criteriaBuilder.equal(root.get("userEntity").get("id"), user_id)
             );
 
-            try {
-                em.createQuery(query).getSingleResult();
-                tx.commit();
-                return true; // Found promise for this user
+            em.createQuery(query).getSingleResult();
+            return true; // Found promise for this user
 
-            } catch (Exception e) {
-                tx.commit();
-                return false; // No promise found for this user
-            }
-        } catch (Exception e) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
+        } catch (Exception ignore) {
+                return false;
         }
-
-        return false;
     }
 }

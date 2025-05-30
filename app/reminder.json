@@ -1,0 +1,46 @@
+{
+  "author": "Daily Reminder",
+  "footer": "Reminder - King James Version (KJV)",
+  "color": "green",
+  "url": "",
+  "image": "",
+
+  "fields": [
+
+    {
+      "name": "Prayer",
+      "value": "Don't forget to pray daily. God wants you to pray and talk with Him.",
+      "inline": false
+    },
+
+    {
+      "name": "Thessalonians 5:17-18",
+      "value": "17 Pray without ceasing.\n\n18 In every thing give thanks: for this is the will of God in Christ Jesus concerning you.",
+      "inline": false
+    },
+
+    {
+      "name": "1 Timothy 2:8",
+      "value": "8 I will therefore that men pray every where, lifting up holy hands, without wrath and doubting.",
+      "inline": false
+    },
+
+    {
+      "name": "Bible Reading",
+      "value": "Don't forget to read the bible and to study it.",
+      "inline": false
+    },
+
+    {
+      "name": "Ecclesiastes 12:12",
+      "value": "12 And further, by these, my son, be admonished: of making many books there is no end; and much study is a weariness of the flesh.",
+      "inline": false
+    },
+
+    {
+      "name": "2 Timothy 2:15",
+      "value": "15 Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth.",
+      "inline": false
+    }
+  ]
+}

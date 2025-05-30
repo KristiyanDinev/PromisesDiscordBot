@@ -7,27 +7,18 @@ import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.source.http.HttpAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
-import com.sedmelluq.discord.lavaplayer.source.twitch.TwitchStreamAudioSourceManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.managers.AudioManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import project.kristiyan.App;
 import project.kristiyan.audio.GuildMusicManager;
-import project.kristiyan.database.entities.UserEntity;
 import project.kristiyan.models.EmbedModel;
 
 import java.awt.*;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.List;
 
@@ -40,14 +31,13 @@ public class Utility {
         musicManagers = new HashMap<>();
         playerManager = new DefaultAudioPlayerManager();
 
-        playerManager.registerSourceManager(new TwitchStreamAudioSourceManager());
         playerManager.registerSourceManager(new HttpAudioSourceManager());
         playerManager.registerSourceManager(new LocalAudioSourceManager());
 
         playerManager.getConfiguration().setFilterHotSwapEnabled(true);
         playerManager.setTrackStuckThreshold(10000);
 
-        AudioSourceManagers.registerRemoteSources(playerManager);
+        AudioSourceManagers.registerLocalSource(playerManager);
 
         objectMapper = new ObjectMapper();
     }
@@ -134,21 +124,84 @@ public class Utility {
         return color;
     }
 
-    public MessageEmbed buildEmbed(String content) throws JsonProcessingException {
+    public List<MessageEmbed> buildEmbed(String content) throws JsonProcessingException {
         EmbedModel model = objectMapper.readValue(content, EmbedModel.class);
+
+        List<MessageEmbed> embeds = new ArrayList<>();
 
         EmbedBuilder embedBuilder = getEmbedBuilder(model);
 
+        int i = 0;
         for (Map<String, Object> field : model.fields) {
-            embedBuilder.addField(
-                    String.valueOf(field.get("name")),
-                    String.valueOf(field.get("value")),
-                    Boolean.parseBoolean(
-                            String.valueOf(field.getOrDefault("inline", false))));
+            boolean inline = Boolean.parseBoolean(
+                    String.valueOf(field.getOrDefault("inline", false)));
+
+            List<String> name_texts = _getSplitStringForEmbed(String.valueOf(field.get("name")));
+            List<String> value_texts = _getSplitStringForEmbed(String.valueOf(field.get("value")));
+            
+            if (name_texts.size() == 1 && value_texts.size() == 1) {
+                embedBuilder.addField(name_texts.getFirst(), value_texts.getFirst(), inline);
+                i++;
+                if (i % 25 == 0) {
+                    embeds.add(embedBuilder.build());
+                    embedBuilder = new EmbedBuilder();
+                    embedBuilder.setAuthor("Continuing");
+                }
+                
+            } else {
+                for (String name_text : name_texts) {
+                    embedBuilder.addField(name_text, ".", inline);
+                    i++;
+                    if (i % 25 == 0) {
+                        embeds.add(embedBuilder.build());
+                        embedBuilder = new EmbedBuilder();
+                        embedBuilder.setAuthor("Continuing");
+                    }
+                }
+
+                for (String value_text : value_texts) {
+                    embedBuilder.addField(".", value_text, inline);
+                    i++;
+                    if (i % 25 == 0) {
+                        embeds.add(embedBuilder.build());
+                        embedBuilder = new EmbedBuilder();
+                        embedBuilder.setAuthor("Continuing");
+                    }
+                }
+            }
         }
 
-        return embedBuilder.build();
+        if (embeds.isEmpty()) {
+            embeds.add(embedBuilder.build());
+        }
+
+        return embeds;
     }
+
+
+    private List<String> _getSplitStringForEmbed(String value) {
+        List<String> split = new ArrayList<>();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        int word_count = 0;
+        for (String word : value.split(" ")) {
+            word_count++;
+            stringBuilder.append(word).append(" ");
+
+            if (word_count % 100 == 0) {
+                split.add(stringBuilder.toString());
+                stringBuilder = new StringBuilder();
+            }
+        }
+
+        if (split.isEmpty()) {
+            split.add(stringBuilder.toString());
+        }
+
+        return split;
+    }
+    
+
 
     @NotNull
     private EmbedBuilder getEmbedBuilder(EmbedModel model) {

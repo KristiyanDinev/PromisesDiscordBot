@@ -1,8 +1,6 @@
 package project.kristiyan.utilities;
 
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import project.kristiyan.App;
@@ -11,7 +9,6 @@ import project.kristiyan.database.dao.ReminderDao;
 import project.kristiyan.database.entities.PromiseEntity;
 import project.kristiyan.database.entities.ReminderEntity;
 
-import javax.annotation.Nullable;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -32,7 +29,6 @@ public class TimerUtility {
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
     private static final int CHECK_INTERVAL_MINUTES = 1;
-    private static final int BATCH_SIZE = 100; // Process in batches to avoid memory issues
 
     public TimerUtility(JDA jda, PromiseDao promiseDao, ReminderDao reminderDao) {
         this.jda = jda;
@@ -66,7 +62,7 @@ public class TimerUtility {
                 this::executeSendingMessages,
                 0, // Start immediately
                 CHECK_INTERVAL_MINUTES,
-                TimeUnit.MINUTES
+                TimeUnit.MINUTES   // TimeUnit.MINUTES
         );
     }
 
@@ -150,7 +146,7 @@ public class TimerUtility {
         }
 
         File file = files.get((int)(Math.random() * files.size()));
-        String promiseContent = null;
+        String promiseContent;
         try {
             promiseContent = Files.readString(Paths.get(file.getPath()));
 
@@ -164,7 +160,6 @@ public class TimerUtility {
                     continue;
                 }
 
-                User user2 = getUserById(promiseEntity.userEntity.id);
                 User user = jda.getUserById(promiseEntity.userEntity.id);
                 if (user == null) {
                     continue;
@@ -172,7 +167,9 @@ public class TimerUtility {
 
                 PrivateChannel channel = user.openPrivateChannel()
                         .useCache(false).complete();
-                channel.sendMessageEmbeds(App.utility.buildEmbed(promiseContent))
+
+                channel.sendMessageEmbeds(
+                        App.utility.buildEmbed(promiseContent))
                         .queue();
 
             } catch (Exception ignored) {
@@ -181,39 +178,34 @@ public class TimerUtility {
     }
 
     private void processRemindersBatch(List<ReminderEntity> reminderEntities) {
+        String reminderContent;
+        try {
+            reminderContent = Files.readString(Paths.get("reminder.json"));
+
+        } catch (Exception e) {
+            return;
+        }
+
         for (ReminderEntity reminderEntity : reminderEntities) {
             try {
                 if (isNotTimeToSend(reminderEntity.time)) {
                     continue;
                 }
 
-                User user = getUserById(reminderEntity.userEntity.id);
+                User user = jda.getUserById(reminderEntity.userEntity.id);
                 if (user == null) {
                     continue;
                 }
 
                 PrivateChannel channel = user.openPrivateChannel()
                         .useCache(false).complete();
-                /*
-                channel.sendMessageEmbeds(App.utility.buildEmbed(reminderContent))
-                        .queue();*/
 
-                channel.sendMessage("Hello. Reminder Service.")
+                channel.sendMessageEmbeds(App.utility.buildEmbed(reminderContent))
                         .queue();
 
             } catch (Exception ignored) {
             }
         }
-    }
-
-    private User getUserById(long id) {
-        for (Guild g : jda.getGuilds()) {
-            Member member = g.getMemberById(id);
-            if (member != null) {
-                return member.getUser();
-            }
-        }
-        return null;
     }
 
     /**
@@ -232,15 +224,15 @@ public class TimerUtility {
             // Parse the time string "HH:mm Timezone"
             String[] parts = timeString.trim().split(" ", 2);
 
-            // Parse the time and timezone
-            LocalTime targetTime = LocalTime.parse(parts[0], TIME_FORMATTER);
-
-            // Get current time in the specified timezone
+            String time = parts[0];
+            if (time.charAt(1) == ':') {
+                time = "0" + time;
+            }
+            LocalTime targetTime = LocalTime.parse(time, TIME_FORMATTER);
             LocalTime currentTimeInZone = ZonedDateTime.now(ZoneId.of(parts[1])).toLocalTime();
 
-            // Check if current time matches target time (within the same minute)
-            return currentTimeInZone.getHour() != targetTime.getHour() &&
-                    currentTimeInZone.getMinute() != targetTime.getMinute();
+            return !(currentTimeInZone.getHour() == targetTime.getHour() &&
+                    currentTimeInZone.getMinute() == targetTime.getMinute());
 
         } catch (Exception ignore) {
             return true;

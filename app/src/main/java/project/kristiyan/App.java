@@ -3,7 +3,11 @@ package project.kristiyan;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import project.kristiyan.commands.*;
+import net.dv8tion.jda.api.utils.ChunkingFilter;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import project.kristiyan.commands.SubscribeSlashCommand;
+import project.kristiyan.commands.SubscribersSlashCommand;
+import project.kristiyan.commands.UnsubscribeSlashCommand;
 import project.kristiyan.commands.music.*;
 import project.kristiyan.database.Database;
 import project.kristiyan.database.dao.PromiseDao;
@@ -14,6 +18,8 @@ import project.kristiyan.utilities.TimerUtility;
 import project.kristiyan.utilities.Utility;
 
 public class App {
+    public final static String playlists = "playlists/";
+
     public static JDA jda;
     public static Database database;
     public static PromiseDao promiseDao;
@@ -21,7 +27,6 @@ public class App {
     public static UserDao userDao;
     public static Utility utility;
     public static TimerUtility timerUtility;
-
 
     public static void main(String[] args) throws Exception {
         database = new Database();
@@ -35,7 +40,9 @@ public class App {
                 System.getenv("DISCORD_BOT_TOKEN"),
                 GatewayIntent.DIRECT_MESSAGES,
                 GatewayIntent.GUILD_MEMBERS,
-                GatewayIntent.GUILD_VOICE_STATES);
+                GatewayIntent.GUILD_VOICE_STATES)
+                .setMemberCachePolicy(MemberCachePolicy.ALL)
+                .setChunkingFilter(ChunkingFilter.ALL);
 
         jda = builder.build();
 

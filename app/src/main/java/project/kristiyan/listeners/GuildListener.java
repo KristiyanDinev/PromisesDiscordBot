@@ -9,6 +9,10 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import project.kristiyan.App;
 import project.kristiyan.enums.Services;
 
+import javax.annotation.Nonnull;
+import java.io.File;
+import java.util.Arrays;
+
 public class GuildListener extends ListenerAdapter {
 
     /**
@@ -16,7 +20,19 @@ public class GuildListener extends ListenerAdapter {
      * These commands will update instantly and are great for testing.
      */
     @Override
-    public void onGuildReady(GuildReadyEvent event) {
+    public void onGuildReady(@Nonnull GuildReadyEvent event) {
+        File playlists = new File(App.playlists);
+        if (!playlists.exists()) {
+            playlists.mkdir();
+        }
+
+        File[] files = playlists.listFiles(File::isDirectory);
+        if (files == null) {
+            files = new File[]{};
+        }
+
+        String namesOfPlaylists = String.join(", ",
+                Arrays.stream(files).map(File::getName).toList());
 
         OptionData serviceOption = new OptionData(OptionType.STRING,
                 "service",
@@ -51,7 +67,8 @@ public class GuildListener extends ListenerAdapter {
                         "Joins vc and plays music")
                         .addOption(OptionType.STRING,
                                 "source",
-                                "playlists: Telegram, Fingerstyle. Supports: .mp3 files and playlists",
+                                "playlists: " +namesOfPlaylists+
+                                        " Supports: .mp3 files and playlists",
                                 true),
 
                 Commands.slash("pause", "Pause the current track"),
