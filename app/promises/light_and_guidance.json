@@ -15,6 +15,24 @@
 
     {
       "name": "Notes",
+      "value": "Light delivers you from Darkness",
+      "inline": false
+    },
+
+    {
+      "name": "Isaiah 9:2",
+      "value": "2 The people that walked in darkness have seen a great light: they that dwell in the land of the shadow of death, upon them hath the light shined.",
+      "inline": false
+    },
+
+    {
+      "name": "John 1:3-9",
+      "value": "3 All things were made by him; and without him was not any thing made that was made.\n\n4 In him was life; and the life was the light of men.\n\n5 And the light shineth in darkness; and the darkness comprehended it not.\n\n6 There was a man sent from God, whose name was John.\n\n7 The same came for a witness, to bear witness of the Light, that all men through him might believe.\n\n8 He was not that Light, but was sent to bear witness of that Light.\n\n9 That was the true Light, which lighteth every man that cometh into the world.",
+      "inline": false
+    },
+
+    {
+      "name": "Notes",
       "value": "God reveals secrets to His children.",
       "inline": false
     },
