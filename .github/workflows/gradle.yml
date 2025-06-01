@@ -37,6 +37,7 @@ jobs:
         name: Assets
         path: |
           app/*
+          !app/gradle*
           !app/build.gradle.kts
           !app/src/
           !app/build/
