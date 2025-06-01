@@ -53,3 +53,7 @@ tasks.withType<Jar> {
         attributes["Main-Class"] = "project.kristiyan.App"
     }
 }
+
+tasks.register<Wrapper>("wrapper") {
+    gradleVersion = "8.13"
+}
