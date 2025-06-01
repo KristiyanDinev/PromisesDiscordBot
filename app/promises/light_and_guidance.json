@@ -56,6 +56,12 @@
     },
 
     {
+      "name": "2 Samuel 22:29",
+      "value": "29 For thou art my lamp, O LORD: And the LORD will lighten my darkness.",
+      "inline": false
+    },
+
+    {
       "name": "Nehemiah 9:12-15,19",
       "value": "12 Moreover thou leddest them in the day by a cloudy pillar; and in the night by a pillar of fire, to give them light in the way wherein they should go.\n\n13 Thou camest down also upon mount Sinai, and spakest with them from heaven, and gavest them right judgments, and true laws, good statutes and commandments:\n\n14 And madest known unto them thy holy sabbath, and commandedst them precepts, statutes, and laws, by the hand of Moses thy servant:\n\n15 And gavest them bread from heaven for their hunger, and broughtest forth water for them out of the rock for their thirst, and promisedst them that they should go in to possess the land which thou hadst sworn to give them.\n\n19 Yet thou in thy manifold mercies forsookest them not in the wilderness: the pillar of the cloud departed not from them by day, to lead them in the way; neither the pillar of fire by night, to shew them light, and the way wherein they should go.",
       "inline": false
@@ -70,6 +76,12 @@
     {
       "name": "Psalms 119:105-110",
       "value": "105 Thy word is a lamp unto my feet, and a light unto my path.\n\n106 I have sworn, and I will perform it, that I will keep thy righteous judgments.\n\n107 I am afflicted very much: quicken me, O Lord, according unto thy word.\n\n108 Accept, I beseech thee, the freewill offerings of my mouth, O Lord, and teach me thy judgments.\n\n109 My soul is continually in my hand: yet do I not forget thy law.\n\n110 The wicked have laid a snare for me: yet I erred not from thy precepts.",
+      "inline": false
+    },
+
+    {
+      "name": "Proverbs 3:5-7",
+      "value": "5 Trust in the Lord with all thine heart; and lean not unto thine own understanding.\n\n6 In all thy ways acknowledge him, and he shall direct thy paths.\n\n7 Be not wise in thine own eyes: fear the Lord, and depart from evil.",
       "inline": false
     },
 
@@ -94,12 +106,6 @@
     {
       "name": "End of Notes",
       "value": ".",
-      "inline": false
-    },
-
-    {
-      "name": "Proverbs 3:5-7",
-      "value": "5 Trust in the Lord with all thine heart; and lean not unto thine own understanding.\n\n6 In all thy ways acknowledge him, and he shall direct thy paths.\n\n7 Be not wise in thine own eyes: fear the Lord, and depart from evil.",
       "inline": false
     },
 

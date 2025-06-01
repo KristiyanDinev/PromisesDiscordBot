@@ -8,6 +8,12 @@
   "fields": [
 
     {
+      "name": "2 Samuel 22:37",
+      "value": "37 Thou hast enlarged my steps under me; So that my feet did not slip.",
+      "inline": false
+    },
+
+    {
       "name": "Isaiah 41:8-16",
       "value": "8 But thou, Israel, art my servant, Jacob whom I have chosen, the seed of Abraham my friend.\n\n9 Thou whom I have taken from the ends of the earth, and called thee from the chief men thereof, and said unto thee, Thou art my servant; I have chosen thee, and not cast thee away.\n\n10 Fear thou not; for I am with thee: be not dismayed; for I am thy God: I will strengthen thee; yea, I will help thee; yea, I will uphold thee with the right hand of my righteousness.\n\n11 Behold, all they that were incensed against thee shall be ashamed and confounded: they shall be as nothing; and they that strive with thee shall perish.\n\n12 Thou shalt seek them, and shalt not find them, even them that contended with thee: they that war against thee shall be as nothing, and as a thing of nought.\n\n13 For I the Lord thy God will hold thy right hand, saying unto thee, Fear not; I will help thee.\n\n14 Fear not, thou worm Jacob, and ye men of Israel; I will help thee, saith the Lord, and thy redeemer, the Holy One of Israel.\n\n15 Behold, I will make thee a new sharp threshing instrument having teeth: thou shalt thresh the mountains, and beat them small, and shalt make the hills as chaff.\n\n16 Thou shalt fan them, and the wind shall carry them away, and the whirlwind shall scatter them: and thou shalt rejoice in the Lord, and shalt glory in the Holy One of Israel.",
       "inline": false
@@ -27,7 +33,7 @@
 
     {
       "name": "Summary",
-      "value": "God promises to protect His people."
+      "value": "God promises to protect His people. All promises"
     }
   ]
 }

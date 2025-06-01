@@ -28,7 +28,7 @@ public class TimerUtility {
     private ScheduledFuture<?> currentTask;
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
-    private static final int CHECK_INTERVAL_MINUTES = 1;
+    private static final int CHECK_INTERVAL_SECONDS = 30;
 
     public TimerUtility(JDA jda, PromiseDao promiseDao, ReminderDao reminderDao) {
         this.jda = jda;
@@ -61,8 +61,8 @@ public class TimerUtility {
         currentTask = scheduler.scheduleAtFixedRate(
                 this::executeSendingMessages,
                 0, // Start immediately
-                CHECK_INTERVAL_MINUTES,
-                TimeUnit.MINUTES   // TimeUnit.MINUTES
+                CHECK_INTERVAL_SECONDS,
+                TimeUnit.SECONDS
         );
     }
 

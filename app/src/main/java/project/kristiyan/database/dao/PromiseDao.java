@@ -122,7 +122,7 @@ public class PromiseDao {
 
             em.clear();
 
-            return deletedCount > 0;
+            return deletedCount >= 0;
 
         } catch (Exception e) {
             if (tx.isActive()) {

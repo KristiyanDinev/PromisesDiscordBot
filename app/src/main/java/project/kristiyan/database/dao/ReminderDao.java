@@ -116,7 +116,7 @@ public class ReminderDao {
             tx.commit();
             em.clear();
 
-            return deletedCount > 0;
+            return deletedCount >= 0;
 
         } catch (Exception e) {
             if (tx.isActive()) {
