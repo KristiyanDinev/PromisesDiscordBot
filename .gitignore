@@ -1,8 +1,7 @@
 # Compiled class file
-*.class
 
-build/temp
-build/reports
+build/temp/
+build/reports/
 
 # Log file
 *.log
@@ -14,8 +13,6 @@ build/reports
 .mtj.tmp/
 
 # Package Files #
-*.jar
-*.war
 *.nar
 *.ear
 *.zip
@@ -29,4 +26,4 @@ replay_pid*
 .idea
 .gradle
 
-build/reports
+build/reports/
