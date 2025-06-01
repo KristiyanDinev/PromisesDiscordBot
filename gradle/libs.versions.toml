@@ -4,7 +4,7 @@
 [versions]
 guava = "33.3.1-jre"
 jackson = "2.19.0-rc2"
-jda = "5.3.2"
+jda = "5.5.1"
 sqlite = "3.49.1.0"
 slf4j = "2.0.17"
 logback = "1.5.18"
