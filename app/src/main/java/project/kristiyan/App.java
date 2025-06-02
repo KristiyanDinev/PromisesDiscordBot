@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import project.kristiyan.commands.ReloadSlashCommand;
 import project.kristiyan.commands.SubscribeSlashCommand;
 import project.kristiyan.commands.SubscribersSlashCommand;
 import project.kristiyan.commands.UnsubscribeSlashCommand;
@@ -49,6 +50,7 @@ public class App {
 
         jda.addEventListener(new GuildListener(),
                 new ButtonListener(),
+                new ReloadSlashCommand(),
                 new UnsubscribeSlashCommand(),
                 new SubscribersSlashCommand(),
                 new SubscribeSlashCommand(),

@@ -1,8 +1,10 @@
 package project.kristiyan.listeners;
 
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -47,6 +49,12 @@ public class GuildListener extends ListenerAdapter {
                 true);
 
         event.getGuild().updateCommands().addCommands(
+                Commands.slash("reload", "Reloads the promises and the reminder.")
+                                .setDefaultPermissions(
+                                        DefaultMemberPermissions.enabledFor(
+                                                Permission.MANAGE_SERVER
+                                        )),
+
                 Commands.slash("subscribe",
                                 "Subscribe for one of our services")
                         .addOptions(timeOption, serviceOption),
