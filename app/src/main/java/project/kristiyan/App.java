@@ -13,6 +13,7 @@ import project.kristiyan.database.Database;
 import project.kristiyan.database.dao.PromiseDao;
 import project.kristiyan.database.dao.ReminderDao;
 import project.kristiyan.database.dao.UserDao;
+import project.kristiyan.listeners.ButtonListener;
 import project.kristiyan.listeners.GuildListener;
 import project.kristiyan.utilities.TimerUtility;
 import project.kristiyan.utilities.Utility;
@@ -47,6 +48,7 @@ public class App {
         jda = builder.build();
 
         jda.addEventListener(new GuildListener(),
+                new ButtonListener(),
                 new UnsubscribeSlashCommand(),
                 new SubscribersSlashCommand(),
                 new SubscribeSlashCommand(),

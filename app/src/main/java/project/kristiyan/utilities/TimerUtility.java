@@ -1,6 +1,7 @@
 package project.kristiyan.utilities;
 
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import project.kristiyan.App;
@@ -9,7 +10,6 @@ import project.kristiyan.database.dao.ReminderDao;
 import project.kristiyan.database.entities.PromiseEntity;
 import project.kristiyan.database.entities.ReminderEntity;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalTime;
@@ -140,19 +140,17 @@ public class TimerUtility {
     }
 
     private void processPromisesBatch(List<PromiseEntity> promiseEntities) {
-        List<File> files = App.utility.getFiles("promises/");
-        if (files.isEmpty()) {
-            return;
-        }
-
-        File file = files.get((int)(Math.random() * files.size()));
+        List<String> files = App.utility.promises.keySet().stream().toList();
+        String promiseFile = files.get((int)(Math.random() * files.size()));
         String promiseContent;
         try {
-            promiseContent = Files.readString(Paths.get(file.getPath()));
+            promiseContent = Files.readString(Paths.get(promiseFile));
 
         } catch (Exception e) {
             return;
         }
+
+        MessageEmbed promiseEmbed = App.utility.buildEmbedsWithPagination(promiseContent).getFirst();
 
         for (PromiseEntity promiseEntity : promiseEntities) {
             try {
@@ -168,8 +166,8 @@ public class TimerUtility {
                 PrivateChannel channel = user.openPrivateChannel()
                         .useCache(false).complete();
 
-                channel.sendMessageEmbeds(
-                        App.utility.buildEmbed(promiseContent))
+                channel.sendMessageEmbeds(promiseEmbed)
+                        .setActionRow(App.utility.getForwardButton(promiseFile, 1))
                         .queue();
 
             } catch (Exception ignored) {
@@ -178,14 +176,7 @@ public class TimerUtility {
     }
 
     private void processRemindersBatch(List<ReminderEntity> reminderEntities) {
-        String reminderContent;
-        try {
-            reminderContent = Files.readString(Paths.get("reminder.json"));
-
-        } catch (Exception e) {
-            return;
-        }
-
+        MessageEmbed reminder = App.utility.buildEmbedsWithPagination(App.utility.reminderContext).getFirst();
         for (ReminderEntity reminderEntity : reminderEntities) {
             try {
                 if (isNotTimeToSend(reminderEntity.time)) {
@@ -200,7 +191,8 @@ public class TimerUtility {
                 PrivateChannel channel = user.openPrivateChannel()
                         .useCache(false).complete();
 
-                channel.sendMessageEmbeds(App.utility.buildEmbed(reminderContent))
+                channel.sendMessageEmbeds(reminder)
+                        .setActionRow(App.utility.getForwardButton(App.utility.reminderFile, 1))
                         .queue();
 
             } catch (Exception ignored) {

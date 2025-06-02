@@ -1,6 +1,5 @@
 package project.kristiyan.utilities;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
@@ -11,14 +10,17 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.managers.AudioManager;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import project.kristiyan.audio.GuildMusicManager;
 import project.kristiyan.models.EmbedModel;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 
@@ -27,7 +29,12 @@ public class Utility {
     public Map<Long, GuildMusicManager> musicManagers;
     public ObjectMapper objectMapper;
 
-    public Utility() {
+    // name of the file, its context
+    public Map<String, String> promises;
+    public String reminderContext;
+    public String reminderFile = "reminder.json";
+
+    public Utility() throws IOException {
         musicManagers = new HashMap<>();
         playerManager = new DefaultAudioPlayerManager();
 
@@ -40,6 +47,19 @@ public class Utility {
         AudioSourceManagers.registerLocalSource(playerManager);
 
         objectMapper = new ObjectMapper();
+        promises = new HashMap<>();
+
+        reloadFiles();
+    }
+
+    public void reloadFiles() throws IOException {
+        promises.clear();
+
+        reminderContext = Files.readString(Paths.get("reminder.json"));
+
+        for (File file : getFiles("promises/")) {
+            promises.put(file.getPath(), Files.readString(Paths.get(file.getPath())));
+        }
     }
 
     public void connectToVoiceChannel(AudioManager audioManager, VoiceChannel channel) {
@@ -65,7 +85,6 @@ public class Utility {
 
         return musicManager;
     }
-
 
     public List<File> getFiles(String folder) {
         File file = new File(folder);
@@ -124,62 +143,124 @@ public class Utility {
         return color;
     }
 
-    public List<MessageEmbed> buildEmbed(String content) throws JsonProcessingException {
-        EmbedModel model = objectMapper.readValue(content, EmbedModel.class);
+    public List<MessageEmbed> buildEmbedsWithPagination(String content) {
+        EmbedModel model;
+        try {
+            model = objectMapper.readValue(content, EmbedModel.class);
+
+        } catch (Exception ignored) {
+            return new ArrayList<>();
+        }
 
         List<MessageEmbed> embeds = new ArrayList<>();
 
-        EmbedBuilder embedBuilder = getEmbedBuilder(model);
+        List<MessageEmbed.Field> processedFields = new ArrayList<>();
 
-        int i = 0;
         for (Map<String, Object> field : model.fields) {
-            boolean inline = Boolean.parseBoolean(
-                    String.valueOf(field.getOrDefault("inline", false)));
+            boolean inline = Boolean.parseBoolean(String.valueOf(field.getOrDefault("inline", false)));
 
-            List<String> name_texts = _getSplitStringForEmbed(String.valueOf(field.get("name")));
-            List<String> value_texts = _getSplitStringForEmbed(String.valueOf(field.get("value")));
-            
-            if (name_texts.size() == 1 && value_texts.size() == 1) {
-                embedBuilder.addField(name_texts.getFirst(), value_texts.getFirst(), inline);
-                i++;
-                if (i % 25 == 0) {
-                    embeds.add(embedBuilder.build());
-                    embedBuilder = new EmbedBuilder();
-                    embedBuilder.setAuthor("Continuing");
+            // Split name and value if needed
+            List<String> nameChunks = _splitIntoChunks(String.valueOf(field.getOrDefault("name", "")));
+            List<String> valueChunks = _splitIntoChunks(String.valueOf(field.getOrDefault("value", "")));
+
+            // Pair them as needed
+            if (nameChunks.size() == 1 && valueChunks.size() == 1) {
+                processedFields.add(new MessageEmbed.Field(
+                        nameChunks.getFirst(),
+                        valueChunks.getFirst(),
+                        inline
+                ));
+
+            } else if (nameChunks.size() == 1) {
+                // values are more, then names
+                processedFields.add(new MessageEmbed.Field(
+                        nameChunks.getFirst(),
+                        valueChunks.getFirst(),
+                        inline
+                ));
+
+                valueChunks.removeFirst();
+
+                for (String valuePart : valueChunks) {
+                    processedFields.add(new MessageEmbed.Field(
+                            ".",
+                            valuePart,
+                            inline
+                    ));
                 }
-                
+            } else if (valueChunks.size() == 1) {
+                // for sure names are more, then values
+                String last = nameChunks.getLast();
+                nameChunks.removeLast();
+
+                for (String namePart : nameChunks) {
+                    processedFields.add(new MessageEmbed.Field(
+                            namePart,
+                            ".",
+                            inline
+                    ));
+                }
+
+                processedFields.add(new MessageEmbed.Field(
+                        last,
+                        valueChunks.getFirst(),
+                        inline
+                ));
+
+
             } else {
-                for (String name_text : name_texts) {
-                    embedBuilder.addField(name_text, ".", inline);
-                    i++;
-                    if (i % 25 == 0) {
-                        embeds.add(embedBuilder.build());
-                        embedBuilder = new EmbedBuilder();
-                        embedBuilder.setAuthor("Continuing");
-                    }
+                // both are super long
+                String last = nameChunks.getLast();
+                nameChunks.removeLast();
+
+                for (String namePart : nameChunks) {
+                    processedFields.add(new MessageEmbed.Field(
+                            namePart,
+                            ".",
+                            inline
+                    ));
                 }
 
-                for (String value_text : value_texts) {
-                    embedBuilder.addField(".", value_text, inline);
-                    i++;
-                    if (i % 25 == 0) {
-                        embeds.add(embedBuilder.build());
-                        embedBuilder = new EmbedBuilder();
-                        embedBuilder.setAuthor("Continuing");
-                    }
+                processedFields.add(new MessageEmbed.Field(
+                        last,
+                        valueChunks.getFirst(),
+                        inline
+                ));
+
+                valueChunks.removeFirst();
+
+                for (String valuePart : valueChunks) {
+                    processedFields.add(new MessageEmbed.Field(
+                            ".",
+                            valuePart,
+                            inline
+                    ));
                 }
             }
         }
 
-        if (embeds.isEmpty()) {
+        // Create embeds with 5 fields per page
+        int totalFields = processedFields.size();
+        int totalPages = (int) Math.ceil(totalFields / 5.0);
+
+        for (int page = 0; page < totalPages; page++) {
+            EmbedBuilder embedBuilder = getEmbedBuilder(model);
+            embedBuilder.setFooter(model.footer + " Page " + (page + 1) + " of " + totalPages);
+
+            int startIdx = page * 5;
+            int endIdx = Math.min(startIdx + 5, totalFields);
+
+            for (int i = startIdx; i < endIdx; i++) {
+                embedBuilder.addField(processedFields.get(i));
+            }
+
             embeds.add(embedBuilder.build());
         }
 
         return embeds;
     }
 
-
-    private List<String> _getSplitStringForEmbed(String value) {
+    private List<String> _splitIntoChunks(String value) {
         List<String> split = new ArrayList<>();
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -200,10 +281,7 @@ public class Utility {
 
         return split;
     }
-    
 
-
-    @NotNull
     private EmbedBuilder getEmbedBuilder(EmbedModel model) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         if (!model.color.isEmpty()) {
@@ -226,5 +304,15 @@ public class Utility {
             embedBuilder.setImage(model.image);
         }
         return embedBuilder;
+    }
+
+    public Button getForwardButton(String promiseFile, int page) {
+        //  privateChannel.sendMessage("").setActionRow(button).queue();
+        return Button.primary(promiseFile+","+page, "⏩");
+    }
+
+    public Button getBackwardButton(String promiseFile, int page) {
+        //  privateChannel.sendMessage("").setActionRow(button).queue();
+        return Button.primary(promiseFile+","+page, "⏪");
     }
 }
