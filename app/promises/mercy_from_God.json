@@ -26,8 +26,44 @@
     },
 
     {
+      "name": "Nehemiah 1:5",
+      "value": "5 And said, I beseech thee, O LORD God of heaven, the great and terrible God, that keepeth covenant and mercy for them that love him and observe his commandments:",
+      "inline": false
+    },
+
+    {
       "name": "2 Chronicles 6:14-15",
       "value": "14 And said, O Lord God of Israel, there is no God like thee in the heaven, nor in the earth; which keepest covenant, and shewest mercy unto thy servants, that walk before thee with all their hearts:\n\n15 Thou which hast kept with thy servant David my father that which thou hast promised him; and spakest with thy mouth, and hast fulfilled it with thine hand, as it is this day.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalms 52:8",
+      "value": "8 But I am like a green olive tree in the house of God: I trust in the mercy of God for ever and ever.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalms 59:10",
+      "value": "10 The God of my mercy shall prevent me: God shall let me see my desire upon mine enemies.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalms 59:17",
+      "value": "17 Unto thee, O my strength, will I sing: for God is my defence, and the God of my mercy.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalms 66:20",
+      "value": "20 Blessed be God, which hath not turned away my prayer, nor his mercy from me.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalms 86:15",
+      "value": "15 But thou, O Lord, art a God full of compassion, and gracious, longsuffering, and plenteous in mercy and truth.",
       "inline": false
     },
 
@@ -38,14 +74,128 @@
     },
 
     {
+      "name": "Psalms 109:21",
+      "value": "21 But do thou for me, O GOD the Lord, for thy name's sake: because thy mercy is good, deliver thou me.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalms 136:26",
+      "value": "26 O give thanks unto the God of heaven: for his mercy endureth for ever.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalms 136:26",
+      "value": "26 O give thanks unto the God of heaven: for his mercy endureth for ever.",
+      "inline": false
+    },
+
+    {
+      "name": "Isaiah 55:7",
+      "value": "7 Let the wicked forsake his way, and the unrighteous man his thoughts: and let him return unto the LORD, and he will have mercy upon him; and to our God, for he will abundantly pardon.",
+      "inline": false
+    },
+
+    {
+      "name": "Daniel 9:4",
+      "value": "4 And I prayed unto the LORD my God, and made my confession, and said, O Lord, the great and dreadful God, keeping the covenant and mercy to them that love him, and to them that keep his commandments;",
+      "inline": false
+    },
+
+    {
+      "name": "Hosea 1:7",
+      "value": "7 But I will have mercy upon the house of Judah, and will save them by the LORD their God, and will not save them by bow, nor by sword, nor by battle, by horses, nor by horsemen.",
+      "inline": false
+    },
+
+    {
+      "name": "Hosea 2:23",
+      "value": "23 And I will sow her unto me in the earth; and I will have mercy upon her that had not obtained mercy; and I will say to them which were not my people, Thou art my people; and they shall say, Thou art my God.",
+      "inline": false
+    },
+
+    {
+      "name": "Hosea 6:6",
+      "value": "6 For I desired mercy, and not sacrifice; and the knowledge of God more than burnt offerings.",
+      "inline": false
+    },
+
+    {
+      "name": "Hosea 12:6",
+      "value": "6 Therefore turn thou to thy God: keep mercy and judgment, and wait on thy God continually.",
+      "inline": false
+    },
+
+    {
+      "name": "Micah 6:8",
+      "value": "8 He hath shewed thee, O man, what is good; and what doth the LORD require of thee, but to do justly, and to love mercy, and to walk humbly with thy God?",
+      "inline": false
+    },
+
+    {
+      "name": "Micah 7:18",
+      "value": "18 Who is a God like unto thee, that pardoneth iniquity, and passeth by the transgression of the remnant of his heritage? he retaineth not his anger for ever, because he delighteth in mercy.",
+      "inline": false
+    },
+
+    {
+      "name": "Romans 9:16",
+      "value": "16 So then it is not of him that willeth, nor of him that runneth, but of God that sheweth mercy.",
+      "inline": false
+    },
+
+    {
       "name": "Notes",
-      "value": "God has mercy on them that keep His commandments. See the Ten Commandments.",
+      "value": "God gives mercy to the unbelievers, through you (believer). Therefore, all people shall have mercy. Praise the LORD!",
+      "inline": false
+    },
+
+    {
+      "name": "Romans 11:30-33",
+      "value": "30 For as ye in times past have not believed God, yet have now obtained mercy through their unbelief:\n\n31 Even so have these also now not believed, that through your mercy they also may obtain mercy.\n\n32 For God hath concluded them all in unbelief, that he might have mercy upon all.\n\n33 O the depth of the riches both of the wisdom and knowledge of God! how unsearchable are his judgments, and his ways past finding out!",
+      "inline": false
+    },
+
+    {
+      "name": "1 Peter 2:10",
+      "value": "10 Which in time past were not a people, but are now the people of God: which had not obtained mercy, but now have obtained mercy.",
+      "inline": false
+    },
+
+    {
+      "name": "End of Notes",
+      "value": ".",
+      "inline": false
+    },
+
+    {
+      "name": "Galatians 6:16",
+      "value": "16 And as many as walk according to this rule, peace be on them, and mercy, and upon the Israel of God.",
+      "inline": false
+    },
+
+    {
+      "name": "Ephesians 2:4",
+      "value": "4 But God, who is rich in mercy, for his great love wherewith he loved us,",
+      "inline": false
+    },
+
+    {
+      "name": "1 Peter 2:3",
+      "value": "3 Blessed be the God and Father of our Lord Jesus Christ, which according to his abundant mercy hath begotten us again unto a lively hope by the resurrection of Jesus Christ from the dead,",
+      "inline": false
+    },
+
+    {
+      "name": "Jude 1:21",
+      "value": "21 Keep yourselves in the love of God, looking for the mercy of our Lord Jesus Christ unto eternal life.",
       "inline": false
     },
 
     {
       "name": "Summary",
-      "value": "God promises to have an abundance of mercy upon His children."
+      "value": "God promises to have mercy on those that keep His commandments. See the Ten Commandments."
     }
   ]
 }
