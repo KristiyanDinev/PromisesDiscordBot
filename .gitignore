@@ -3,6 +3,8 @@
 build/temp/
 build/reports/
 
+app/logs
+
 # Log file
 *.log
 
