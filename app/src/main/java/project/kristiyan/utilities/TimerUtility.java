@@ -28,7 +28,7 @@ public class TimerUtility {
     private ScheduledFuture<?> currentTask;
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
-    private static final int CHECK_INTERVAL_SECONDS = 32;
+    private static final int CHECK_INTERVAL_SECONDS = 40;
 
     public TimerUtility(JDA jda, PromiseDao promiseDao, ReminderDao reminderDao) {
         this.jda = jda;
