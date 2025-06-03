@@ -34,6 +34,8 @@ public class Utility {
     public String reminderContext;
     public String reminderFile = "reminder.json";
 
+    private static final int fieldsPerPage = 3;
+
     public Utility() throws IOException {
         musicManagers = new HashMap<>();
         playerManager = new DefaultAudioPlayerManager();
@@ -241,14 +243,14 @@ public class Utility {
 
         // Create embeds with 5 fields per page
         int totalFields = processedFields.size();
-        int totalPages = (int) Math.ceil(totalFields / 5.0);
+        int totalPages = (int) Math.ceil(totalFields / (double) fieldsPerPage);
 
         for (int page = 0; page < totalPages; page++) {
             EmbedBuilder embedBuilder = getEmbedBuilder(model);
             embedBuilder.setFooter(model.footer + " Page " + (page + 1) + " of " + totalPages);
 
-            int startIdx = page * 5;
-            int endIdx = Math.min(startIdx + 5, totalFields);
+            int startIdx = page * fieldsPerPage;
+            int endIdx = Math.min(startIdx + fieldsPerPage, totalFields);
 
             for (int i = startIdx; i < endIdx; i++) {
                 embedBuilder.addField(processedFields.get(i));
