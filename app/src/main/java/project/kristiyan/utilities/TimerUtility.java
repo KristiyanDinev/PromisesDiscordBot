@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
+import net.dv8tion.jda.api.requests.restaction.MessageCreateAction;
 import project.kristiyan.App;
 import project.kristiyan.database.dao.PromiseDao;
 import project.kristiyan.database.dao.ReminderDao;
@@ -150,7 +151,8 @@ public class TimerUtility {
             return;
         }
 
-        MessageEmbed promiseEmbed = App.utility.buildEmbedsWithPagination(promiseContent).getFirst();
+        List<MessageEmbed> embeds = App.utility.buildEmbedsWithPagination(promiseContent);
+        MessageEmbed firstPage = embeds.getFirst();
 
         for (PromiseEntity promiseEntity : promiseEntities) {
             try {
@@ -166,9 +168,12 @@ public class TimerUtility {
                 PrivateChannel channel = user.openPrivateChannel()
                         .useCache(false).complete();
 
-                channel.sendMessageEmbeds(promiseEmbed)
-                        .setActionRow(App.utility.getForwardButton(promiseFile, 1))
-                        .queue();
+                MessageCreateAction messageCreateAction = channel.sendMessageEmbeds(firstPage);
+                if (embeds.size() > 1) {
+                    messageCreateAction.setActionRow(App.utility.getForwardButton(promiseFile, 1));
+                }
+
+                messageCreateAction.queue();
 
             } catch (Exception ignored) {
             }
@@ -176,7 +181,9 @@ public class TimerUtility {
     }
 
     private void processRemindersBatch(List<ReminderEntity> reminderEntities) {
-        MessageEmbed reminder = App.utility.buildEmbedsWithPagination(App.utility.reminderContext).getFirst();
+        List<MessageEmbed> embeds = App.utility.buildEmbedsWithPagination(App.utility.reminderContext);
+        MessageEmbed reminder = embeds.getFirst();
+
         for (ReminderEntity reminderEntity : reminderEntities) {
             try {
                 if (isNotTimeToSend(reminderEntity.time)) {
@@ -191,9 +198,13 @@ public class TimerUtility {
                 PrivateChannel channel = user.openPrivateChannel()
                         .useCache(false).complete();
 
-                channel.sendMessageEmbeds(reminder)
-                        .setActionRow(App.utility.getForwardButton(App.utility.reminderFile, 1))
-                        .queue();
+                MessageCreateAction messageCreateAction = channel.sendMessageEmbeds(reminder);
+                if (embeds.size() > 1) {
+                    messageCreateAction
+                            .setActionRow(App.utility.getForwardButton(App.utility.reminderFile, 1));
+                }
+
+                messageCreateAction.queue();
 
             } catch (Exception ignored) {
             }
