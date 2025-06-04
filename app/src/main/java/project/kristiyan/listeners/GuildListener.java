@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import org.jetbrains.annotations.NotNull;
 import project.kristiyan.App;
 import project.kristiyan.enums.Services;
 
@@ -23,18 +24,7 @@ public class GuildListener extends ListenerAdapter {
      */
     @Override
     public void onGuildReady(@Nonnull GuildReadyEvent event) {
-        File playlists = new File(App.playlists);
-        if (!playlists.exists()) {
-            playlists.mkdir();
-        }
-
-        File[] files = playlists.listFiles(File::isDirectory);
-        if (files == null) {
-            files = new File[]{};
-        }
-
-        String namesOfPlaylists = String.join(", ",
-                Arrays.stream(files).map(File::getName).toList());
+        OptionData playlistOption = getPlaylistOption();
 
         OptionData serviceOption = new OptionData(OptionType.STRING,
                 "service",
@@ -73,11 +63,7 @@ public class GuildListener extends ListenerAdapter {
 
                 Commands.slash("music",
                         "Joins vc and plays music")
-                        .addOption(OptionType.STRING,
-                                "source",
-                                "playlists: " +namesOfPlaylists+
-                                        " Supports: .mp3 files and playlists",
-                                true),
+                        .addOptions(playlistOption),
 
                 Commands.slash("pause", "Pause the current track"),
                 Commands.slash("resume", "Resume the current track"),
@@ -94,5 +80,28 @@ public class GuildListener extends ListenerAdapter {
                 .setActivity(
                         Activity.listening(
                   "Music and message bot"));
+    }
+
+    @NotNull
+    private static OptionData getPlaylistOption() {
+        File playlists = new File(App.playlists);
+        if (!playlists.exists()) {
+            playlists.mkdir();
+        }
+
+        File[] files = playlists.listFiles();
+        if (files == null) {
+            files = new File[]{};
+        }
+
+        OptionData playlistOption = new OptionData(OptionType.STRING,
+                "source",
+                "Supports: .mp3 files and playlists",
+                true);
+
+        for (File file : files) {
+            playlistOption = playlistOption.addChoice(file.getName(), file.getName());
+        }
+        return playlistOption;
     }
 }
