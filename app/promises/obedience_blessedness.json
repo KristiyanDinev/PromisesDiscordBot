@@ -27,13 +27,49 @@
 
     {
       "name": "Notes",
-      "value": "This includes all that God has commanded us to keep.",
+      "value": "These are the commandments which God has commanded us to keep, even after the death and resurrection of Christ. Please study them, so that you may have a better understanding of which is a commandment and which is a prophecy. God has given commandments, men have also given commandments, but we should follow the commandments of God.",
+      "inline": false
+    },
+
+    {
+      "name": "Exodus 20:1-17",
+      "value": "1 And God spake all these words, saying,\n\n2 I am the Lord thy God, which have brought thee out of the land of Egypt, out of the house of bondage.\n\n3 Thou shalt have no other gods before me.\n\n4 Thou shalt not make unto thee any graven image, or any likeness of any thing that is in heaven above, or that is in the earth beneath, or that is in the water under the earth.\n\n5 Thou shalt not bow down thyself to them, nor serve them: for I the Lord thy God am a jealous God, visiting the iniquity of the fathers upon the children unto the third and fourth generation of them that hate me;\n\n6 And shewing mercy unto thousands of them that love me, and keep my commandments.\n\n7 Thou shalt not take the name of the Lord thy God in vain; for the Lord will not hold him guiltless that taketh his name in vain.\n\n8 Remember the sabbath day, to keep it holy.\n\n9 Six days shalt thou labour, and do all thy work:\n\n10 But the seventh day is the sabbath of the Lord thy God: in it thou shalt not do any work, thou, nor thy son, nor thy daughter, thy manservant, nor thy maidservant, nor thy cattle, nor thy stranger that is within thy gates:\n\n11 For in six days the Lord made heaven and earth, the sea, and all that in them is, and rested the seventh day: wherefore the Lord blessed the sabbath day, and hallowed it.\n\n12 Honour thy father and thy mother: that thy days may be long upon the land which the Lord thy God giveth thee.\n\n13 Thou shalt not kill.\n\n14 Thou shalt not commit adultery.\n\n15 Thou shalt not steal.\n\n16 Thou shalt not bear false witness against thy neighbour.\n\n17 Thou shalt not covet thy neighbour's house, thou shalt not covet thy neighbour's wife, nor his manservant, nor his maidservant, nor his ox, nor his ass, nor any thing that is thy neighbour's.",
+      "inline": false
+    },
+
+    {
+      "name": "Joshua 1:8-9",
+      "value": "8 This book of the law shall not depart out of thy mouth; but thou shalt meditate therein day and night, that thou mayest observe to do according to all that is written therein: for then thou shalt make thy way prosperous, and then thou shalt have good success.\n\n9 Have not I commanded thee? Be strong and of a good courage; be not afraid, neither be thou dismayed: for the Lord thy God is with thee whithersoever thou goest.",
       "inline": false
     },
 
     {
       "name": "Malachi 3:6",
       "value": "6 For I am the LORD, I change not; therefore ye sons of Jacob are not consumed.",
+      "inline": false
+    },
+
+    {
+      "name": "Matthew 5:18",
+      "value": "18 For verily I say unto you, Till heaven and earth pass, one jot or one tittle shall in no wise pass from the law, till all be fulfilled.",
+      "inline": false
+    },
+
+    {
+      "name": "Matthew 22:37-40",
+      "value": "37 Jesus said unto him, Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy mind.\n\n38 This is the first and great commandment.\n\n39 And the second is like unto it, Thou shalt love thy neighbour as thyself.\n\n40 On these two commandments hang all the law and the prophets.",
+      "inline": false
+    },
+
+    {
+      "name": "Matthew 24:35",
+      "value": "35 Heaven and earth shall pass away, but my words shall not pass away.",
+      "inline": false
+    },
+
+    {
+      "name": "Romans 12:1-2",
+      "value": "1 I beseech you therefore, brethren, by the mercies of God, that ye present your bodies a living sacrifice, holy, acceptable unto God, which is your reasonable service.\n\n2 And be not conformed to this world: but be ye transformed by the renewing of your mind, that ye may prove what is that good, and acceptable, and perfect, will of God.",
       "inline": false
     },
 
