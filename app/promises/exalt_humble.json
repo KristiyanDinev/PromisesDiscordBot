@@ -8,8 +8,74 @@
   "fields": [
 
     {
+      "name": "Study - Honor",
+      "value": "God honors the humble, for they submit themselves to God. Honor God and God will honor you.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalm 49:20",
+      "value": "20 Man that is in honour, and understandeth not, is like the beasts that perish.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalm 66",
+      "value": "66 Sing forth the honour of his name: make his praise glorious.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalm 71",
+      "value": "71 Let my mouth be filled with thy praise and with thy honour all the day.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalm 91:14-16",
+      "value": "14 Because he hath set his love upon me, therefore will I deliver him: I will set him on high, because he hath known my name.\n\n15 He shall call upon me, and I will answer him: I will be with him in trouble; I will deliver him, and honour him.\n\n16 With long life will I satisfy him, and shew him my salvation.",
+      "inline": false
+    },
+
+    {
+      "name": "Proverbs 8:18",
+      "value": "18 Riches and honour are with me; yea, durable riches and righteousness.",
+      "inline": false
+    },
+
+    {
+      "name": "Proverbs 15:33",
+      "value": "33 The fear of the LORD is the instruction of wisdom; and before honour is humility.",
+      "inline": false
+    },
+
+    {
+      "name": "Proverbs 18:12",
+      "value": "12 Before destruction the heart of man is haughty, and before honour is humility.",
+      "inline": false
+    },
+
+    {
       "name": "Proverbs 29:23",
       "value": "23 A man's pride shall bring him low: but honour shall uphold the humble in spirit.",
+      "inline": false
+    },
+
+    {
+      "name": "Malachi 1:6",
+      "value": "6 A son honoureth his father, and a servant his master: if then I be a father, where is mine honour? and if I be a master, where is my fear? saith the LORD of hosts unto you, O priests, that despise my name. And ye say, Wherein have we despised thy name?",
+      "inline": false
+    },
+
+    {
+      "name": "John 8:54",
+      "value": "54 Jesus answered, If I honour myself, my honour is nothing: it is my Father that honoureth me; of whom ye say, that he is your God:",
+      "inline": false
+    },
+
+    {
+      "name": "End of Study",
+      "value": ".",
       "inline": false
     },
 
@@ -33,7 +99,7 @@
 
     {
       "name": "Summary",
-      "value": "God promises us to deliver us from our troubles and our enemies, for He loves us and we are His."
+      "value": "The humble in God are blessed and God will exalt them in due time. Therefore, submit yourself to God."
     }
   ]
 }
