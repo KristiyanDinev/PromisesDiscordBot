@@ -3,7 +3,7 @@
   "footer": "King James Version (KJV)",
   "color": "green",
   "url": "",
-  "image": "",
+  "image": "https://cdn.discordapp.com/attachments/1373997423160197130/1381659087304917143/image.png?ex=684851cc&is=6847004c&hm=8b75fd105922b9b2f0260d1be8f133836e9661c1e12896a4b5d45709ee345ef9&",
 
   "fields": [
 
@@ -16,6 +16,90 @@
     {
       "name": "1 Peter 5:7",
       "value": "7 Casting all your care upon him; for he careth for you.",
+      "inline": false
+    },
+
+    {
+      "name": "Study: Sin is also a burden which people bear, but in Jesus Christ we have forgiveness of sins",
+      "value": ".",
+      "inline": false
+    },
+
+    {
+      "name": "Genesis 18:20",
+      "value": "20 And the LORD said, Because the cry of Sodom and Gomorrah is great, and because their sin is very grievous;",
+      "inline": false
+    },
+
+    {
+      "name": "Leviticus 5:17",
+      "value": "17 And if a soul sin, and commit any of these things which are forbidden to be done by the commandments of the LORD; though he wist it not, yet is he guilty, and shall bear his iniquity.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalm 38:3-4",
+      "value": "3 There is no soundness in my flesh because of thine anger; neither is there any rest in my bones because of my sin.\n\n4 For mine iniquities are gone over mine head: as an heavy burden they are too heavy for me.",
+      "inline": false
+    },
+
+    {
+      "name": "Isaiah 53:12",
+      "value": "12 Therefore will I divide him a portion with the great, and he shall divide the spoil with the strong; because he hath poured out his soul unto death: and he was numbered with the transgressors; and he bare the sin of many, and made intercession for the transgressors.",
+      "inline": false
+    },
+
+    {
+      "name": "Notes",
+      "value": "Iniquity is sin, which you know is wrong and still do it.",
+      "inline": false
+    },
+
+    {
+      "name": "Notes",
+      "value": "The price of sin is death, since all of us have souls and can feel that heavy burden and the need for a savior who is our God, Jesus Christ.",
+      "inline": false
+    },
+
+    {
+      "name": "Deuteronomy 24:16",
+      "value": "16 The fathers shall not be put to death for the children, neither shall the children be put to death for the fathers: every man shall be put to death for his own sin.",
+      "inline": false
+    },
+
+    {
+      "name": "Romans 5:12",
+      "value": "12 Wherefore, as by one man sin entered into the world, and death by sin; and so death passed upon all men, for that all have sinned:",
+      "inline": false
+    },
+
+    {
+      "name": "Romans 5:21",
+      "value": "21 That as sin hath reigned unto death, even so might grace reign through righteousness unto eternal life by Jesus Christ our Lord.",
+      "inline": false
+    },
+
+    {
+      "name": "Romans 6:22-23",
+      "value": "22 But now being made free from sin, and become servants to God, ye have your fruit unto holiness, and the end everlasting life.\n\n23 For the wages of sin is death; but the gift of God is eternal life through Jesus Christ our Lord.",
+      "inline": false
+    },
+
+    {
+      "name": "End of Notes",
+      "value": ".",
+      "inline": false
+    },
+
+    {
+      "name": "John 8:34-36",
+      "value": "34 Jesus answered them, Verily, verily, I say unto you, Whosoever committeth sin is the servant of sin.\n\n35 And the servant abideth not in the house for ever: but the Son abideth ever.\n\n36 If the Son therefore shall make you free, ye shall be free indeed.",
+      "inline": false
+    },
+
+    {
+      "name": "Hebrews 9:28",
+      "value": "28 So Christ was once offered to bear the sins of many; and unto them that look for him shall he appear the second time without sin unto salvation.",
       "inline": false
     },
 
