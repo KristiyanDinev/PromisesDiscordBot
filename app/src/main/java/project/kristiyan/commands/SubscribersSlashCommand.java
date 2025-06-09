@@ -27,7 +27,19 @@ public class SubscribersSlashCommand extends ListenerAdapter {
             return;
         }
 
-        int page = pageMapping.getAsInt();
+        int page;
+        try {
+            page = pageMapping.getAsInt();
+            if (page < 1) {
+                throw new Exception();
+            }
+        } catch (Exception ignored) {
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.setTitle("Invalid page. Please specify a positive number bigger than 0");
+            embedBuilder.setColor(Color.RED);
+            event.replyEmbeds(embedBuilder.build()).queue();
+            return;
+        }
         Services services = Services.valueOf(serviceMapping.getAsString());
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
