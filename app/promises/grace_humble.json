@@ -8,7 +8,7 @@
   "fields": [
 
     {
-      "name": "Study - Honor",
+      "name": "Study: Honor",
       "value": "God honors the humble, for they submit themselves to God. Honor God and God will honor you.",
       "inline": false
     },
@@ -75,6 +75,24 @@
 
     {
       "name": "End of Study",
+      "value": ".",
+      "inline": false
+    },
+
+    {
+      "name": "Psalm 37:34",
+      "value": "34 Wait on the Lord, and keep his way, and he shall exalt thee to inherit the land: when the wicked are cut off, thou shalt see it.",
+      "inline": false
+    },
+
+    {
+      "name": "Notes on Psalm 37:34",
+      "value": "Waiting on the LORD shows your faith and patience.",
+      "inline": false
+    },
+
+    {
+      "name": "End of Notes",
       "value": ".",
       "inline": false
     },
