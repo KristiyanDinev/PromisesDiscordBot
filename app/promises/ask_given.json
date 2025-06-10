@@ -56,6 +56,24 @@
     },
 
     {
+      "name": "John 15:7",
+      "value": "7 If ye abide in me, and my words abide in you, ye shall ask what ye will, and it shall be done unto you.",
+      "inline": false
+    },
+
+    {
+      "name": "John 15:16",
+      "value": "16 Ye have not chosen me, but I have chosen you, and ordained you, that ye should go and bring forth fruit, and that your fruit should remain: that whatsoever ye shall ask of the Father in my name, he may give it you.",
+      "inline": false
+    },
+
+    {
+      "name": "John 16:23-24",
+      "value": "23 And in that day ye shall ask me nothing. Verily, verily, I say unto you, Whatsoever ye shall ask the Father in my name, he will give it you.\n\n24 Hitherto have ye asked nothing in my name: ask, and ye shall receive, that your joy may be full.",
+      "inline": false
+    },
+
+    {
       "name": "James 4:2-3",
       "value": "2 Ye lust, and have not: ye kill, and desire to have, and cannot obtain: ye fight and war, yet ye have not, because ye ask not.\n\n3 Ye ask, and receive not, because ye ask amiss, that ye may consume it upon your lusts.",
       "inline": false
