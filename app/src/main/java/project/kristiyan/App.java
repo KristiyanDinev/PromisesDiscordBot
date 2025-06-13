@@ -16,7 +16,9 @@ import project.kristiyan.database.dao.ReminderDao;
 import project.kristiyan.database.dao.UserDao;
 import project.kristiyan.listeners.ButtonListener;
 import project.kristiyan.listeners.GuildListener;
-import project.kristiyan.utilities.TimerUtility;
+import project.kristiyan.services.AdminService;
+import project.kristiyan.utilities.EmbedUtility;
+import project.kristiyan.services.TimerService;
 import project.kristiyan.utilities.Utility;
 
 public class App {
@@ -28,7 +30,9 @@ public class App {
     public static ReminderDao reminderDao;
     public static UserDao userDao;
     public static Utility utility;
-    public static TimerUtility timerUtility;
+    public static EmbedUtility embedUtility;
+    public static TimerService timerService;
+    public static AdminService adminService;
 
     public static void main(String[] args) throws Exception {
         database = new Database();
@@ -37,6 +41,8 @@ public class App {
         userDao = new UserDao(database.getEntityManager());
 
         utility = new Utility();
+        embedUtility = new EmbedUtility();
+        adminService = new AdminService();
 
         JDABuilder builder = JDABuilder.createDefault(
                 System.getenv("PROMISES_DISCORD_BOT_TOKEN"),
@@ -63,18 +69,18 @@ public class App {
                 new VolumeCommand()
         );
 
-        timerUtility = new TimerUtility(jda, promiseDao, reminderDao);
+        timerService = new TimerService(jda, promiseDao, reminderDao);
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             userDao.close();
             promiseDao.close();
             reminderDao.close();
             database.close();
-            timerUtility.stop();
+            timerService.stop();
             jda.shutdown();
         }));
 
         jda.awaitReady();
-        timerUtility.start();
+        timerService.start();
     }
 }

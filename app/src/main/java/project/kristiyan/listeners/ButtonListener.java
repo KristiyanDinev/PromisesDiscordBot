@@ -46,7 +46,7 @@ public class ButtonListener extends ListenerAdapter {
                 App.utility.reminderContext :
                 App.utility.promises.get(promise);
 
-        List<MessageEmbed> embeds = App.utility.buildEmbedsWithPagination(content);
+        List<MessageEmbed> embeds = App.embedUtility.buildEmbedsWithPagination(content);
         if (page >= embeds.size()) {
             return;
         }

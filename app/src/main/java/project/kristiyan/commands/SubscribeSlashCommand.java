@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import project.kristiyan.App;
 import project.kristiyan.database.entities.UserEntity;
 import project.kristiyan.enums.Services;
-import project.kristiyan.utilities.TimerUtility;
+import project.kristiyan.services.TimerService;
 
 import java.awt.*;
 
@@ -34,7 +34,7 @@ public class SubscribeSlashCommand extends ListenerAdapter {
         }
 
         String time = timeMapping.getAsString();
-        if (TimerUtility.isInvalidTimeFormat(time)) {
+        if (TimerService.isInvalidTimeFormat(time)) {
             EmbedBuilder error = new EmbedBuilder();
             error.setTitle("Invalid time format. Try: Hours:Minutes Timezone. Example: 8:30 Europe/Helsinki");
             error.setColor(Color.RED);

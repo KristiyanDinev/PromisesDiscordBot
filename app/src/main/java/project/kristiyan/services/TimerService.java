@@ -1,4 +1,4 @@
-package project.kristiyan.utilities;
+package project.kristiyan.services;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.*;
 
-public class TimerUtility {
+public class TimerService {
     private final JDA jda;
     private final PromiseDao promiseDao;
     private final ReminderDao reminderDao;
@@ -31,7 +31,7 @@ public class TimerUtility {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
     private static final int CHECK_INTERVAL_SECONDS = 40;
 
-    public TimerUtility(JDA jda, PromiseDao promiseDao, ReminderDao reminderDao) {
+    public TimerService(JDA jda, PromiseDao promiseDao, ReminderDao reminderDao) {
         this.jda = jda;
         this.promiseDao = promiseDao;
         this.reminderDao = reminderDao;
@@ -151,7 +151,7 @@ public class TimerUtility {
             return;
         }
 
-        List<MessageEmbed> embeds = App.utility.buildEmbedsWithPagination(promiseContent);
+        List<MessageEmbed> embeds = App.embedUtility.buildEmbedsWithPagination(promiseContent);
         MessageEmbed firstPage = embeds.getFirst();
 
         for (PromiseEntity promiseEntity : promiseEntities) {
@@ -181,7 +181,7 @@ public class TimerUtility {
     }
 
     private void processRemindersBatch(List<ReminderEntity> reminderEntities) {
-        List<MessageEmbed> embeds = App.utility.buildEmbedsWithPagination(App.utility.reminderContext);
+        List<MessageEmbed> embeds = App.embedUtility.buildEmbedsWithPagination(App.utility.reminderContext);
         MessageEmbed reminder = embeds.getFirst();
 
         for (ReminderEntity reminderEntity : reminderEntities) {

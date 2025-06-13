@@ -84,6 +84,22 @@ Otherwise, the bot can't read the invalid JSON format.**
 `reminder.json` is the configuration to all **reminders** and follows the same format/pattern as the promises.
 It doesn't have to be in a specific folder, but as the database is, so is this file.
 
+## Admins
+
+`admins.json` follows this format:
+```json
+{
+  "admins": [
+    {
+      "name": "Efficient Name",
+      "id": 12345678
+    },
+    ...
+  ]
+}
+```
+These are they, which can use the `/reload` command.
+
 ## Bot Token
 Put `PROMISES_DISCORD_BOT_TOKEN` as environment variable.
 
