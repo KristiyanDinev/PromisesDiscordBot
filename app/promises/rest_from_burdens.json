@@ -1,11 +1,77 @@
 {
-  "author": "Daily Promise - Rest from burdens",
+  "author": "Daily Promise - Rest",
   "footer": "King James Version (KJV)",
   "color": "green",
   "url": "",
   "image": "https://cdn.discordapp.com/attachments/1373997423160197130/1381659087304917143/image.png?ex=684851cc&is=6847004c&hm=8b75fd105922b9b2f0260d1be8f133836e9661c1e12896a4b5d45709ee345ef9&",
 
   "fields": [
+
+    {
+      "name": "Joshua 21:44-45",
+      "value": "44 And the Lord gave them rest round about, according to all that he sware unto their fathers: and there stood not a man of all their enemies before them; the Lord delivered all their enemies into their hand.\n\n45 There failed not ought of any good thing which the Lord had spoken unto the house of Israel; all came to pass.",
+      "inline": false
+    },
+
+    {
+      "name": "2 Samuel 7:11-12",
+      "value": "11 And as since the time that I commanded judges to be over my people Israel, and have caused thee to rest from all thine enemies. Also the Lord telleth thee that he will make thee an house.\n\n12 And when thy days be fulfilled, and thou shalt sleep with thy fathers, I will set up thy seed after thee, which shall proceed out of thy bowels, and I will establish his kingdom.",
+      "inline": false
+    },
+
+    {
+      "name": "Notes: 2 Samuel 7:11-12",
+      "value": "At that time, David was king.",
+      "inline": false
+    },
+
+    {
+      "name": "End of Notes",
+      "value": ".",
+      "inline": false
+    },
+
+    {
+      "name": "1 Kings 5:4",
+      "value": "4 But now the LORD my God hath given me rest on every side, so that there is neither adversary nor evil occurrent.",
+      "inline": false
+    },
+
+    {
+      "name": "1 Kings 8:56",
+      "value": "56 Blessed be the LORD, that hath given rest unto his people Israel, according to all that he promised: there hath not failed one word of all his good promise, which he promised by the hand of Moses his servant.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalm 37:7",
+      "value": "7 Rest in the LORD, and wait patiently for him: fret not thyself because of him who prospereth in his way, because of the man who bringeth wicked devices to pass.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalm 55:6",
+      "value": "6 And I said, Oh that I had wings like a dove! for then would I fly away, and be at rest.",
+      "inline": false
+    },
+
+    {
+      "name": "Psalm 116:7",
+      "value": "7 Return unto thy rest, O my soul; for the LORD hath dealt bountifully with thee.",
+      "inline": false
+    },
+
+    {
+      "name": "Isaiah 57:2",
+      "value": "2 He shall enter into peace: they shall rest in their beds, each one walking in his uprightness.",
+      "inline": false
+    },
+
+    {
+      "name": "Jeremiah 50:34",
+      "value": "34 Their Redeemer is strong; the LORD of hosts is his name: he shall throughly plead their cause, that he may give rest to the land, and disquiet the inhabitants of Babylon.",
+      "inline": false
+    },
 
     {
       "name": "Matthew 11:28-30",
@@ -104,8 +170,14 @@
     },
 
     {
+      "name": "End of Study",
+      "value": ".",
+      "inline": false
+    },
+
+    {
       "name": "Summary",
-      "value": "God promises to give us rest from our burdens and sins."
+      "value": "God promises to give us rest from our burdens and sins. Our obedience to God gives us rest."
     }
   ]
 }
