@@ -85,6 +85,6 @@ Otherwise, the bot can't read the invalid JSON format.**
 It doesn't have to be in a specific folder, but as the database is, so is this file.
 
 ## Bot Token
-Put `DISCORD_BOT_TOKEN` as environment variable.
+Put `PROMISES_DISCORD_BOT_TOKEN` as environment variable.
 
 - **Server Members Intent** is required. *(Check discord developer portal)*

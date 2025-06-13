@@ -39,7 +39,7 @@ public class App {
         utility = new Utility();
 
         JDABuilder builder = JDABuilder.createDefault(
-                System.getenv("DISCORD_BOT_TOKEN"),
+                System.getenv("PROMISES_DISCORD_BOT_TOKEN"),
                 GatewayIntent.DIRECT_MESSAGES,
                 GatewayIntent.GUILD_MEMBERS,
                 GatewayIntent.GUILD_VOICE_STATES)
