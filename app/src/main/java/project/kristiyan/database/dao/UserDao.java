@@ -59,8 +59,7 @@ public class UserDao {
             if (tx.isActive()) {
                 tx.rollback();
             }
+            return true;
         }
-
-        return true;
     }
 }

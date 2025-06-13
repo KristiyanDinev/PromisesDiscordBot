@@ -2,6 +2,11 @@
 A simple bot for messaging discord users with a promise from the Bible and maybe some study.
 The configuration and the database should be in the same path as the JAR or in the same directory as your execution command.
 
+## Bot Token
+Put `PROMISES_DISCORD_BOT_TOKEN` as environment variable.
+
+- **Server Members Intent** is required. *(Check discord developer portal)*
+
 ## Playlists
 `/playlists` folder will contain the **playlists**. Each playlist is inside a folder and that folder's name is the playlist's name.
 
@@ -86,21 +91,12 @@ It doesn't have to be in a specific folder, but as the database is, so is this f
 
 ## Admins
 
-`admins.json` follows this format:
-```json
-{
-  "admins": [
-    {
-      "name": "Efficient Name",
-      "id": 12345678
-    },
-    ...
-  ]
-}
-```
-These are they, which can use the `/reload` command.
+Admins get DMs from the bot for their executed admin commands. In that way you can't hide anything and you don't expose something.
 
-## Bot Token
-Put `PROMISES_DISCORD_BOT_TOKEN` as environment variable.
+- `!reload` - Reloads the promises and reminder.
 
-- **Server Members Intent** is required. *(Check discord developer portal)*
+- `!admins` - Shows a list of admins with their names and IDs. It may send more than one embedded message if there are many.
+
+- `!add_admin [user ID]` - Add this user (if it can be found) to the admins.
+
+- `!remove_admin [user ID]` - Removes that admin if it is found in the database.

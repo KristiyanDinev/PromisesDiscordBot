@@ -5,18 +5,21 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
-import project.kristiyan.commands.ReloadSlashCommand;
+import project.kristiyan.commands.admin.AddAdminCommand;
+import project.kristiyan.commands.admin.AdminsCommand;
+import project.kristiyan.commands.admin.ReloadCommand;
 import project.kristiyan.commands.SubscribeSlashCommand;
 import project.kristiyan.commands.SubscribersSlashCommand;
 import project.kristiyan.commands.UnsubscribeSlashCommand;
+import project.kristiyan.commands.admin.RemoveAdminCommand;
 import project.kristiyan.commands.music.*;
 import project.kristiyan.database.Database;
+import project.kristiyan.database.dao.AdminDao;
 import project.kristiyan.database.dao.PromiseDao;
 import project.kristiyan.database.dao.ReminderDao;
 import project.kristiyan.database.dao.UserDao;
 import project.kristiyan.listeners.ButtonListener;
 import project.kristiyan.listeners.GuildListener;
-import project.kristiyan.services.AdminService;
 import project.kristiyan.utilities.EmbedUtility;
 import project.kristiyan.services.TimerService;
 import project.kristiyan.utilities.Utility;
@@ -25,24 +28,26 @@ public class App {
     public final static String playlists = "playlists/";
 
     public static JDA jda;
+
     public static Database database;
     public static PromiseDao promiseDao;
     public static ReminderDao reminderDao;
     public static UserDao userDao;
+    public static AdminDao adminDao;
+
     public static Utility utility;
     public static EmbedUtility embedUtility;
     public static TimerService timerService;
-    public static AdminService adminService;
 
     public static void main(String[] args) throws Exception {
         database = new Database();
         promiseDao = new PromiseDao(database.getEntityManager());
         reminderDao = new ReminderDao(database.getEntityManager());
         userDao = new UserDao(database.getEntityManager());
+        adminDao = new AdminDao(database.getEntityManager());
 
         utility = new Utility();
         embedUtility = new EmbedUtility();
-        adminService = new AdminService();
 
         JDABuilder builder = JDABuilder.createDefault(
                 System.getenv("PROMISES_DISCORD_BOT_TOKEN"),
@@ -56,7 +61,6 @@ public class App {
 
         jda.addEventListener(new GuildListener(),
                 new ButtonListener(),
-                new ReloadSlashCommand(),
                 new UnsubscribeSlashCommand(),
                 new SubscribersSlashCommand(),
                 new SubscribeSlashCommand(),
@@ -66,7 +70,11 @@ public class App {
                 new SkipCommand(),
                 new StopCommand(),
                 new QueueCommand(),
-                new VolumeCommand()
+                new VolumeCommand(),
+                new AdminsCommand(),
+                new AddAdminCommand(),
+                new RemoveAdminCommand(),
+                new ReloadCommand()
         );
 
         timerService = new TimerService(jda, promiseDao, reminderDao);
@@ -75,6 +83,7 @@ public class App {
             userDao.close();
             promiseDao.close();
             reminderDao.close();
+            adminDao.close();
             database.close();
             timerService.stop();
             jda.shutdown();

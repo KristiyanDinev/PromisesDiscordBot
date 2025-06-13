@@ -18,10 +18,4 @@ public class ReminderEntity {
     public UserEntity userEntity;
 
     public ReminderEntity() {}
-
-    public ReminderEntity(int id, String time, UserEntity userEntity) {
-        this.id = id;
-        this.time = time;
-        this.userEntity = userEntity;
-    }
 }

@@ -39,12 +39,6 @@ public class GuildListener extends ListenerAdapter {
                 true);
 
         event.getGuild().updateCommands().addCommands(
-                Commands.slash("reload", "Reloads the promises and the reminder.")
-                                .setDefaultPermissions(
-                                        DefaultMemberPermissions.enabledFor(
-                                                Permission.MANAGE_SERVER
-                                        )),
-
                 Commands.slash("subscribe",
                                 "Subscribe for one of our services")
                         .addOptions(timeOption, serviceOption),
