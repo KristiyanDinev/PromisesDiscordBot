@@ -63,8 +63,6 @@ public class App {
                 new VolumeCommand()
         );
 
-        jda.awaitReady();
-
         timerUtility = new TimerUtility(jda, promiseDao, reminderDao);
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -76,6 +74,7 @@ public class App {
             jda.shutdown();
         }));
 
+        jda.awaitReady();
         timerUtility.start();
     }
 }
