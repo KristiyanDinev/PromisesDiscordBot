@@ -1,5 +1,5 @@
 {
-  "author": "Daily Promise - Blessed is the man who keeps His commandments",
+  "author": "Daily Promise - Blessed is the man who keeps God's commandments",
   "footer": "King James Version (KJV)",
   "color": "green",
   "url": "",
@@ -86,20 +86,8 @@
     },
 
     {
-      "name": "Matthew 24:35",
-      "value": "35 Heaven and earth shall pass away, but my words shall not pass away.",
-      "inline": false
-    },
-
-    {
-      "name": "John 15:9-10",
-      "value": "9 As the Father hath loved me, so have I loved you: continue ye in my love.\n\n10 If ye keep my commandments, ye shall abide in my love; even as I have kept my Father's commandments, and abide in his love.",
-      "inline": false
-    },
-
-    {
-      "name": "John 15:12",
-      "value": "12 This is my commandment, That ye love one another, as I have loved you.",
+      "name": "John 15:9-10,12",
+      "value": "9 As the Father hath loved me, so have I loved you: continue ye in my love.\n\n10 If ye keep my commandments, ye shall abide in my love; even as I have kept my Father's commandments, and abide in his love.\n\n12 This is my commandment, That ye love one another, as I have loved you.",
       "inline": false
     },
 

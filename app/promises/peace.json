@@ -38,38 +38,20 @@
     },
 
     {
-      "name": "Psalm 37:11",
-      "value": "11 But the meek shall inherit the earth; and shall delight themselves in the abundance of peace.",
+      "name": "Psalm 37:11,37",
+      "value": "11 But the meek shall inherit the earth; and shall delight themselves in the abundance of peace.\n\n37 Mark the perfect man, and behold the upright: for the end of that man is peace.",
       "inline": false
     },
 
     {
-      "name": "Psalm 37:37",
-      "value": "11 Mark the perfect man, and behold the upright: for the end of that man is peace.",
+      "name": "Psalm 72:3,7",
+      "value": "3 The mountains shall bring peace to the people, and the little hills, by righteousness.\n\n7 In his days shall the righteous flourish; and abundance of peace so long as the moon endureth.",
       "inline": false
     },
 
     {
-      "name": "Psalm 72:3",
-      "value": "3 The mountains shall bring peace to the people, and the little hills, by righteousness.",
-      "inline": false
-    },
-
-    {
-      "name": "Psalm 72:7",
-      "value": "11 In his days shall the righteous flourish; and abundance of peace so long as the moon endureth.",
-      "inline": false
-    },
-
-    {
-      "name": "Psalm 85:8",
-      "value": "8 I will hear what God the LORD will speak: for he will speak peace unto his people, and to his saints: but let them not turn again to folly.",
-      "inline": false
-    },
-
-    {
-      "name": "Psalm 85:10",
-      "value": "10 Mercy and truth are met together; righteousness and peace have kissed each other.",
+      "name": "Psalm 85:8,10",
+      "value": "8 I will hear what God the LORD will speak: for he will speak peace unto his people, and to his saints: but let them not turn again to folly.\n\n10 Mercy and truth are met together; righteousness and peace have kissed each other.",
       "inline": false
     },
 
@@ -98,7 +80,7 @@
     },
 
     {
-      "name": "Proverbs 16:28",
+      "name": "Proverbs 17:28",
       "value": "28 Even a fool, when he holdeth his peace, is counted wise: and he that shutteth his lips is esteemed a man of understanding.",
       "inline": false
     },
@@ -110,14 +92,8 @@
     },
 
     {
-      "name": "Isaiah 26:3",
-      "value": "3 Thou wilt keep him in perfect peace, whose mind is stayed on thee: because he trusteth in thee.",
-      "inline": false
-    },
-
-    {
-      "name": "Isaiah 26:12",
-      "value": "12 LORD, thou wilt ordain peace for us: for thou also hast wrought all our works in us.",
+      "name": "Isaiah 26:3,12",
+      "value": "3 Thou wilt keep him in perfect peace, whose mind is stayed on thee: because he trusteth in thee.\n\n12 LORD, thou wilt ordain peace for us: for thou also hast wrought all our works in us.",
       "inline": false
     },
 
@@ -134,14 +110,8 @@
     },
 
     {
-      "name": "Isaiah 57:2",
-      "value": "2 He shall enter into peace: they shall rest in their beds, each one walking in his uprightness.",
-      "inline": false
-    },
-
-    {
-      "name": "Isaiah 57:19",
-      "value": "19 I create the fruit of the lips; Peace, peace to him that is far off, and to him that is near, saith the LORD; and I will heal him.",
+      "name": "Isaiah 57:2,19",
+      "value": "2 He shall enter into peace: they shall rest in their beds, each one walking in his uprightness.\n\n19 I create the fruit of the lips; Peace, peace to him that is far off, and to him that is near, saith the LORD; and I will heal him.",
       "inline": false
     },
 
@@ -208,12 +178,6 @@
     {
       "name": "James 3:18",
       "value": "18 And the fruit of righteousness is sown in peace of them that make peace.",
-      "inline": false
-    },
-
-    {
-      "name": "Revelation 6:4",
-      "value": "4 And there went out another horse that was red: and power was given to him that sat thereon to take peace from the earth, and that they should kill one another: and there was given unto him a great sword.",
       "inline": false
     },
 

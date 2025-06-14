@@ -38,32 +38,20 @@
       },
 
       {
-        "name": "Psalm 23",
-        "value": "1 The Lord is my shepherd; I shall not want.\n\n2 He maketh me to lie down in green pastures: he leadeth me beside the still waters.\n\n3 He restoreth my soul: he leadeth me in the paths of righteousness for his name's sake.\n\n4 Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me.\n\n5 Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over.\n\n6 Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the Lord for ever.",
+        "name": "Psalm 23:1-2",
+        "value": "1 The Lord is my shepherd; I shall not want.\n\n2 He maketh me to lie down in green pastures: he leadeth me beside the still waters.",
         "inline": false
       },
 
       {
-        "name": "Psalm 37:1-7",
-        "value": "1 Fret not thyself because of evildoers, neither be thou envious against the workers of iniquity.\n\n2 For they shall soon be cut down like the grass, and wither as the green herb.\n\n3 Trust in the Lord, and do good; so shalt thou dwell in the land, and verily thou shalt be fed.\n\n4 Delight thyself also in the Lord: and he shall give thee the desires of thine heart.\n\n5 Commit thy way unto the Lord; trust also in him; and he shall bring it to pass.\n\n6 And he shall bring forth thy righteousness as the light, and thy judgment as the noonday.\n\n7 Rest in the Lord, and wait patiently for him: fret not thyself because of him who prospereth in his way, because of the man who bringeth wicked devices to pass.",
+        "name": "Psalm 37:1-9",
+        "value": "1 Fret not thyself because of evildoers, neither be thou envious against the workers of iniquity.\n\n2 For they shall soon be cut down like the grass, and wither as the green herb.\n\n3 Trust in the Lord, and do good; so shalt thou dwell in the land, and verily thou shalt be fed.\n\n4 Delight thyself also in the Lord: and he shall give thee the desires of thine heart.\n\n5 Commit thy way unto the Lord; trust also in him; and he shall bring it to pass.\n\n6 And he shall bring forth thy righteousness as the light, and thy judgment as the noonday.\n\n7 Rest in the Lord, and wait patiently for him: fret not thyself because of him who prospereth in his way, because of the man who bringeth wicked devices to pass.\n\n8 Cease from anger, and forsake wrath: fret not thyself in any wise to do evil.\n\n9 For evildoers shall be cut off: but those that wait upon the Lord, they shall inherit the earth.",
         "inline": false
       },
 
       {
-        "name": "Psalm 37:9",
-        "value": "9 For evildoers shall be cut off: but those that wait upon the Lord, they shall inherit the earth.",
-        "inline": false
-      },
-
-      {
-        "name": "Matthew 6:8",
-        "value": "8 Be not ye therefore like unto them: for your Father knoweth what things ye have need of, before ye ask him.",
-        "inline": false
-      },
-
-      {
-        "name": "Matthew 6:25-34",
-        "value": "25 Therefore I say unto you, Take no thought for your life, what ye shall eat, or what ye shall drink; nor yet for your body, what ye shall put on. Is not the life more than meat, and the body than raiment?\n\n26 Behold the fowls of the air: for they sow not, neither do they reap, nor gather into barns; yet your heavenly Father feedeth them. Are ye not much better than they?\n\n27 Which of you by taking thought can add one cubit unto his stature?\n\n28 And why take ye thought for raiment? Consider the lilies of the field, how they grow; they toil not, neither do they spin:\n\n29 And yet I say unto you, That even Solomon in all his glory was not arrayed like one of these.\n\n30 Wherefore, if God so clothe the grass of the field, which to day is, and to morrow is cast into the oven, shall he not much more clothe you, O ye of little faith?\n\n31 Therefore take no thought, saying, What shall we eat? or, What shall we drink? or, Wherewithal shall we be clothed?\n\n32 (For after all these things do the Gentiles seek:) for your heavenly Father knoweth that ye have need of all these things.\n\n33 But seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you.\n\n34 Take therefore no thought for the morrow: for the morrow shall take thought for the things of itself. Sufficient unto the day is the evil thereof.",
+        "name": "Matthew 6:8,25-34",
+        "value": "8 Be not ye therefore like unto them: for your Father knoweth what things ye have need of, before ye ask him.\n\n25 Therefore I say unto you, Take no thought for your life, what ye shall eat, or what ye shall drink; nor yet for your body, what ye shall put on. Is not the life more than meat, and the body than raiment?\n\n26 Behold the fowls of the air: for they sow not, neither do they reap, nor gather into barns; yet your heavenly Father feedeth them. Are ye not much better than they?\n\n27 Which of you by taking thought can add one cubit unto his stature?\n\n28 And why take ye thought for raiment? Consider the lilies of the field, how they grow; they toil not, neither do they spin:\n\n29 And yet I say unto you, That even Solomon in all his glory was not arrayed like one of these.\n\n30 Wherefore, if God so clothe the grass of the field, which to day is, and to morrow is cast into the oven, shall he not much more clothe you, O ye of little faith?\n\n31 Therefore take no thought, saying, What shall we eat? or, What shall we drink? or, Wherewithal shall we be clothed?\n\n32 (For after all these things do the Gentiles seek:) for your heavenly Father knoweth that ye have need of all these things.\n\n33 But seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you.\n\n34 Take therefore no thought for the morrow: for the morrow shall take thought for the things of itself. Sufficient unto the day is the evil thereof.",
         "inline": false
       },
 
@@ -74,17 +62,10 @@
       },
 
       {
-        "name": "Philippians 4:18-20",
-        "value": "18 But I have all, and abound: I am full, having received of Epaphroditus the things which were sent from you, an odour of a sweet smell, a sacrifice acceptable, wellpleasing to God.\n\n19 But my God shall supply all your need according to his riches in glory by Christ Jesus.\n\n20 Now unto God and our Father be glory for ever and ever. Amen.",
+        "name": "Philippians 4:6,18-20",
+        "value": "6 Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God.\n\n18 But I have all, and abound: I am full, having received of Epaphroditus the things which were sent from you, an odour of a sweet smell, a sacrifice acceptable, wellpleasing to God.\n\n19 But my God shall supply all your need according to his riches in glory by Christ Jesus.\n\n20 Now unto God and our Father be glory for ever and ever. Amen.",
         "inline": false
       },
-
-      {
-        "name": "Philippians 4:6",
-        "value": "6 Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God.",
-        "inline": false
-      },
-  
       {
         "name": "Hebrews 11:8-10",
         "value": "8 By faith Abraham, when he was called to go out into a place which he should after receive for an inheritance, obeyed; and he went out, not knowing whither he went.\n\n9 By faith he sojourned in the land of promise, as in a strange country, dwelling in tabernacles with Isaac and Jacob, the heirs with him of the same promise:\n\n10 For he looked for a city which hath foundations, whose builder and maker is God.",
