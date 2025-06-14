@@ -4,25 +4,22 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
 import project.kristiyan.App;
+import project.kristiyan.interfaces.ICommand;
 
 import java.awt.*;
 
-public class AddAdminCommand extends ListenerAdapter {
+public class AddAdminCommand implements ICommand {
 
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        String pure_text = event.getMessage().getContentStripped();
+    public String getName() {
+        return "!add_admin";
+    }
+
+
+    @Override
+    public void execute(MessageReceivedEvent event, String[] args) {
         User author = event.getAuthor();
-
-        if (!event.isFromGuild() || event.isWebhookMessage() ||
-                author.isBot() ||
-                !pure_text.startsWith("!add_admin")) {
-            return;
-        }
-
         if (!App.adminDao.isAdmin(author.getIdLong())) {
             return;
         }
@@ -30,9 +27,7 @@ public class AddAdminCommand extends ListenerAdapter {
         PrivateChannel channel = author.openPrivateChannel().complete();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         try {
-            User newAdmin = App.jda.getUserById(
-                    Long.parseLong(
-                            pure_text.split(" ", 2)[1]));
+            User newAdmin = App.jda.getUserById(Long.parseLong(args[0]));
             if (newAdmin == null) {
                 throw new Exception();
             }

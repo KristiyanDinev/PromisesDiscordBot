@@ -5,7 +5,11 @@ The configuration and the database should be in the same path as the JAR or in t
 ## Bot Token
 Put `PROMISES_DISCORD_BOT_TOKEN` as environment variable.
 
-- **Server Members Intent** is required. *(Check discord developer portal)*
+*Check discord developer portal for the Intents*
+
+- **Server Members Intent** is required.
+
+- **Message Content Intent** is required.
 
 ## Playlists
 `/playlists` folder will contain the **playlists**. Each playlist is inside a folder and that folder's name is the playlist's name.
@@ -92,6 +96,8 @@ It doesn't have to be in a specific folder, but as the database is, so is this f
 ## Admins
 
 Admins get DMs from the bot for their executed admin commands. In that way you can't hide anything and you don't expose something.
+
+There is one admin by default every time the program starts. It is hardcoded in the source code.
 
 - `!reload` - Reloads the promises and reminder.
 

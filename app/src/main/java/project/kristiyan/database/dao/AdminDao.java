@@ -46,16 +46,29 @@ public class AdminDao {
         }
     }
 
-    public void removeAdmin(long user_id) {
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+    public boolean removeAdmin(long user_id) {
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
 
-        CriteriaDelete<AdminEntity> delete = criteriaBuilder.createCriteriaDelete(AdminEntity.class);
-        Root<AdminEntity> root = delete.from(AdminEntity.class);
-        delete = delete.where(
-                criteriaBuilder.equal(root.get("user_id"), user_id)
-        );
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+            CriteriaDelete<AdminEntity> delete = criteriaBuilder.createCriteriaDelete(AdminEntity.class);
+            Root<AdminEntity> root = delete.from(AdminEntity.class);
+            delete = delete.where(
+                    criteriaBuilder.equal(root.get("user_id"), user_id)
+            );
 
-        em.createQuery(delete).executeUpdate();
+            int deletedRows = em.createQuery(delete).executeUpdate();
+            tx.commit();
+            em.clear();
+            return deletedRows >= 0;
+
+        } catch (Exception ignored) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            return false;
+        }
     }
 
     public List<AdminEntity> getAdmins() {

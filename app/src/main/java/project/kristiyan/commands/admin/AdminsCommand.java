@@ -5,29 +5,24 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
 import project.kristiyan.App;
+import project.kristiyan.interfaces.ICommand;
 import project.kristiyan.database.entities.AdminEntity;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminsCommand extends ListenerAdapter {
-
+public class AdminsCommand implements ICommand {
 
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        String pure_text = event.getMessage().getContentStripped();
+    public String getName() {
+        return "!admins";
+    }
+
+    @Override
+    public void execute(MessageReceivedEvent event, String[] args) {
         User author = event.getAuthor();
-
-        if (!event.isFromGuild() || event.isWebhookMessage() ||
-                author.isBot() ||
-                !pure_text.startsWith("!admins")) {
-            return;
-        }
-
         if (!App.adminDao.isAdmin(author.getIdLong())) {
             return;
         }

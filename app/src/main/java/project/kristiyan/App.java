@@ -5,13 +5,9 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
-import project.kristiyan.commands.admin.AddAdminCommand;
-import project.kristiyan.commands.admin.AdminsCommand;
-import project.kristiyan.commands.admin.ReloadCommand;
-import project.kristiyan.commands.SubscribeSlashCommand;
-import project.kristiyan.commands.SubscribersSlashCommand;
-import project.kristiyan.commands.UnsubscribeSlashCommand;
-import project.kristiyan.commands.admin.RemoveAdminCommand;
+import project.kristiyan.commands.subscribe.SubscribeSlashCommand;
+import project.kristiyan.commands.subscribe.SubscribersSlashCommand;
+import project.kristiyan.commands.subscribe.UnsubscribeSlashCommand;
 import project.kristiyan.commands.music.*;
 import project.kristiyan.database.Database;
 import project.kristiyan.database.dao.AdminDao;
@@ -19,6 +15,7 @@ import project.kristiyan.database.dao.PromiseDao;
 import project.kristiyan.database.dao.ReminderDao;
 import project.kristiyan.database.dao.UserDao;
 import project.kristiyan.listeners.ButtonListener;
+import project.kristiyan.listeners.CommandManager;
 import project.kristiyan.listeners.GuildListener;
 import project.kristiyan.utilities.EmbedUtility;
 import project.kristiyan.services.TimerService;
@@ -46,12 +43,17 @@ public class App {
         userDao = new UserDao(database.getEntityManager());
         adminDao = new AdminDao(database.getEntityManager());
 
+        // Default admin user
+        adminDao.addAdmin("Kristiyan", 636950962245730324L);
+
         utility = new Utility();
         embedUtility = new EmbedUtility();
 
         JDABuilder builder = JDABuilder.createDefault(
                 System.getenv("PROMISES_DISCORD_BOT_TOKEN"),
                 GatewayIntent.DIRECT_MESSAGES,
+                GatewayIntent.MESSAGE_CONTENT,
+                GatewayIntent.GUILD_MESSAGES,
                 GatewayIntent.GUILD_MEMBERS,
                 GatewayIntent.GUILD_VOICE_STATES)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
@@ -71,10 +73,7 @@ public class App {
                 new StopCommand(),
                 new QueueCommand(),
                 new VolumeCommand(),
-                new AdminsCommand(),
-                new AddAdminCommand(),
-                new RemoveAdminCommand(),
-                new ReloadCommand()
+                new CommandManager()
         );
 
         timerService = new TimerService(jda, promiseDao, reminderDao);

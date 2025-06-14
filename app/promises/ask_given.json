@@ -80,6 +80,12 @@
     },
 
     {
+      "name": "Romans 8:32",
+      "value": "32 He that spared not his own Son, but delivered him up for us all, how shall he not with him also freely give us all things?",
+      "inline": false
+    },
+
+    {
       "name": "1 Peter 3:12",
       "value": "12 For the eyes of the Lord are over the righteous, and his ears are open unto their prayers: but the face of the Lord is against them that do evil.",
       "inline": false
@@ -113,7 +119,7 @@
       "name": "End of Notes",
       "value": ".",
       "inline": false
-    },
+    },\
 
     {
       "name": "Study",

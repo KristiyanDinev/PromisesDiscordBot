@@ -14,7 +14,6 @@ import project.kristiyan.enums.Services;
 
 import javax.annotation.Nonnull;
 import java.io.File;
-import java.util.Arrays;
 
 public class GuildListener extends ListenerAdapter {
 

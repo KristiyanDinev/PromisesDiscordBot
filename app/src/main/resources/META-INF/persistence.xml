@@ -6,6 +6,7 @@
         <class>project.kristiyan.database.entities.PromiseEntity</class>
         <class>project.kristiyan.database.entities.ReminderEntity</class>
         <class>project.kristiyan.database.entities.UserEntity</class>
+        <class>project.kristiyan.database.entities.AdminEntity</class>
 
         <properties>
             <!-- SQLite JDBC URL -->

@@ -4,25 +4,21 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
 import project.kristiyan.App;
+import project.kristiyan.interfaces.ICommand;
 
 import java.awt.*;
 
-public class ReloadCommand extends ListenerAdapter {
-
+public class ReloadCommand implements ICommand {
 
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+    public String getName() {
+        return "!reload";
+    }
+
+    @Override
+    public void execute(MessageReceivedEvent event, String[] args) {
         User author = event.getAuthor();
-
-        if (!event.isFromGuild() || event.isWebhookMessage() ||
-                author.isBot() ||
-                !event.getMessage().getContentStripped().startsWith("!reload")) {
-            return;
-        }
-
         if (!App.adminDao.isAdmin(author.getIdLong())) {
             return;
         }

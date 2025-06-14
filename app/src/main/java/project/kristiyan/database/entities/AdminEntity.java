@@ -13,7 +13,7 @@ public class AdminEntity {
     @Column(nullable = false)
     public String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public long user_id;
 
     public AdminEntity() {}

@@ -1,4 +1,4 @@
-package project.kristiyan.commands;
+package project.kristiyan.commands.subscribe;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;

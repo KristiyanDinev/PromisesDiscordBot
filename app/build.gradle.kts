@@ -1,6 +1,6 @@
 plugins {
-    application
-    id("com.github.johnrengelman.shadow") version "8.3.6"
+    id("application")
+    id("com.gradleup.shadow") version "8.3.6"
 }
 
 repositories {
@@ -36,10 +36,6 @@ tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = "project.kristiyan.App"
     }
-}
-
-tasks.register<Wrapper>("wrapper") {
-    gradleVersion = "8.13"
 }
 
 tasks.build {

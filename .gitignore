@@ -5,7 +5,6 @@ build/
 app/logs
 
 app/build
-!app/build/libs
 
 # Log file
 *.log
@@ -19,6 +18,10 @@ app/build
 # Package Files #
 *.nar
 *.ear
+*.jar
+!gradle/*
+!gradle/wrapper
+!gradle/wrapper/*
 *.zip
 *.tar.gz
 *.tar
